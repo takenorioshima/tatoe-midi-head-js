@@ -7,12 +7,12 @@
  * 
  */
 
-import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from 'three';
+import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
 import SeedScene from './objects/Scene.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const scene = new Scene();
-const camera = new PerspectiveCamera();
+const camera = new OrthographicCamera();
 const renderer = new WebGLRenderer({antialias: true});
 const seedScene = new SeedScene();
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -21,7 +21,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 scene.add(seedScene);
 
 // camera
-camera.position.set(-1000,0,1000);
+camera.position.set(1,1,1);
+camera.zoom = 1.5;
 camera.lookAt(new Vector3(0,0,0));
 
 // orbit contolls
@@ -29,7 +30,7 @@ controls.update();
 
 // renderer
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x7ec0ee, 1);
+renderer.setClearColor(0xB7BC9B, 1);
 
 // render loop
 const onAnimationFrameHandler = (timeStamp) => {
@@ -41,10 +42,13 @@ const onAnimationFrameHandler = (timeStamp) => {
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 // resize
-const windowResizeHanlder = () => { 
+const windowResizeHanlder = () => {
+  const size = 2;
   const { innerHeight, innerWidth } = window;
   renderer.setSize(innerWidth, innerHeight);
-  camera.aspect = innerWidth / innerHeight;
+  const aspect = innerWidth / innerHeight;
+  camera.left = size * aspect / -2;
+  camera.right = size * aspect / 2;
   camera.updateProjectionMatrix();
 };
 windowResizeHanlder();
