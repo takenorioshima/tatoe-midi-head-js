@@ -26,6 +26,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({'title': 'three-seed project'})
+    new HtmlWebpackPlugin({
+      template: './src/index.html'  
+    })
   ]
 }
