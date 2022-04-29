@@ -11,6 +11,8 @@ export default class SeedScene extends Group {
     const eri = new Eri();
     const lights = new BasicLights();
 
+    take.position.set(-0.385, 0, 0);
+    eri.position.set(0.385, 0, 0);
     this.add(take, eri, lights);
   }
 
