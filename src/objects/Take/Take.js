@@ -12,6 +12,14 @@ export default class Take extends Group {
 
     loader.load(MODEL, (gltf)=>{
       this.add(gltf.scene);
+      this.cap = this.getObjectByName('cap');
+      this.head = this.getObjectByName('head');
+      this.nose = this.getObjectByName('nose');
+      this.lipTop = this.getObjectByName('lipTop');
+      this.lipBottom = this.getObjectByName('lipBottom');
+      this.glassL = this.getObjectByName('glassL');
+      this.glassR = this.getObjectByName('glassR');
+      this.glassFrame = this.getObjectByName('glassFrame');
     });
   }
 }
