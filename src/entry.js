@@ -9,6 +9,7 @@
 
 import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
 import SeedScene from './objects/Scene.js';
+import Animation from './objects/Animation.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const scene = new Scene();
@@ -16,6 +17,7 @@ const camera = new OrthographicCamera();
 const renderer = new WebGLRenderer({antialias: true});
 const seedScene = new SeedScene();
 const controls = new OrbitControls(camera, renderer.domElement);
+const animation = new Animation();
 
 // load state
 window.objectsLoaded = 0;
@@ -41,6 +43,7 @@ const onAnimationFrameHandler = (timeStamp) => {
   seedScene.update && seedScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
   controls.update();
+  animation.update(scene);
 }
 window.requestAnimationFrame(onAnimationFrameHandler);
 
