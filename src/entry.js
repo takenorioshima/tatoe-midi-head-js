@@ -17,6 +17,9 @@ const renderer = new WebGLRenderer({antialias: true});
 const seedScene = new SeedScene();
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// load state
+window.objectsLoaded = 0;
+
 // scene
 scene.add(seedScene);
 
