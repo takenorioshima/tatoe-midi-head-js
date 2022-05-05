@@ -9,8 +9,8 @@ export default class BasicLights extends Group {
     dir.position.set(1, 1, 1);
     dir.target.position.set(0, 0, 0);
 
-    const lightHelper = new DirectionalLightHelper( dir );
-    
+    const lightHelper = new DirectionalLightHelper(dir);
+
     this.add(ambi, dir, lightHelper);
   }
 }

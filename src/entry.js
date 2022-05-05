@@ -14,7 +14,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const scene = new Scene();
 const camera = new OrthographicCamera();
-const renderer = new WebGLRenderer({antialias: true});
+const renderer = new WebGLRenderer({ antialias: true });
 const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
 const animation = new Animation();
@@ -26,9 +26,9 @@ window.objectsLoaded = 0;
 scene.add(tatoeScene);
 
 // camera
-camera.position.set(1,1,1);
+camera.position.set(1, 1, 1);
 camera.zoom = 1.5;
-camera.lookAt(new Vector3(0,0,0));
+camera.lookAt(new Vector3(0, 0, 0));
 
 // orbit contolls
 controls.update();
@@ -61,4 +61,4 @@ window.addEventListener('resize', windowResizeHanlder);
 
 // dom
 document.body.style.margin = 0;
-document.body.appendChild( renderer.domElement );
+document.body.appendChild(renderer.domElement);
