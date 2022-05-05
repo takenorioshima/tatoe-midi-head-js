@@ -20,7 +20,7 @@ export default class Eri extends Group {
       this.eyes = this.getObjectByName('eyes');
       this.nose = this.getObjectByName('nose');
       this.strow = this.getObjectByName('strow');
-      window.objectsLoaded++;
+      window.eri = this;
     });
   }
 }
