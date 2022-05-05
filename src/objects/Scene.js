@@ -3,7 +3,7 @@ import Take from './Take/Take.js';
 import Eri from './Eri/Eri.js';
 import BasicLights from './Lights.js';
 
-export default class SeedScene extends Group {
+export default class TatoeScene extends Group {
   constructor() {
     super();
 

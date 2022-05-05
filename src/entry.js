@@ -8,14 +8,14 @@
  */
 
 import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
-import SeedScene from './objects/Scene.js';
+import TatoeScene from './objects/Scene.js';
 import Animation from './objects/Animation.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const scene = new Scene();
 const camera = new OrthographicCamera();
 const renderer = new WebGLRenderer({antialias: true});
-const seedScene = new SeedScene();
+const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
 const animation = new Animation();
 
@@ -23,7 +23,7 @@ const animation = new Animation();
 window.objectsLoaded = 0;
 
 // scene
-scene.add(seedScene);
+scene.add(tatoeScene);
 
 // camera
 camera.position.set(1,1,1);
@@ -40,7 +40,7 @@ renderer.setClearColor(0xB7BC9B, 1);
 // render loop
 const onAnimationFrameHandler = (timeStamp) => {
   renderer.render(scene, camera);
-  seedScene.update && seedScene.update(timeStamp);
+  tatoeScene.update && tatoeScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
   controls.update();
   animation.update(scene);
