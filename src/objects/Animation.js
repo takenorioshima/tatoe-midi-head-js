@@ -1,21 +1,48 @@
-export default class Animation {
+import * as THREE from 'three';
 
-  update(scene) {
-    if( window.objectsLoaded >= 2 ){
-        scene.getObjectByName('take').glassR.position.y += 0.001;
-        scene.getObjectByName('take').cap.position.y -= 0.001;
-        scene.getObjectByName('take').head.position.x -= 0.005;
-        scene.getObjectByName('take').glassFrame.position.x -= 0.0003;
-    
-        scene.getObjectByName('eri').earL.position.x += 0.0001;
-        scene.getObjectByName('eri').earR.position.z += 0.0001;
-        scene.getObjectByName('eri').hair.position.z += 0.0002;
-        scene.getObjectByName('eri').head.position.x -= 0.005;
-        scene.getObjectByName('eri').head.position.z += 0.003;
-        scene.getObjectByName('eri').hair.position.x += 0.001;
-        scene.getObjectByName('eri').hat.position.y += 0.001;
-        scene.getObjectByName('eri').nose.position.z += 0.001;
+export default class Animation {
+  constructor( scene ){
+
+    const initialEuler = new THREE.Euler( 0, 0, 0, 'XYZ' );
+
+    document.addEventListener('keypress', onKeypressEvent, false);
+    function onKeypressEvent(e){
+      console.log(e);
+      if( window.take && window.eri ){
+        if(e.code=='Digit6'){
+          rotate();
+        }
+        if(e.code=='Digit7'){
+          scale();
+        }
+        if(e.code=='Digit0'){
+          reset();
+        }
+      }
     }
+
+    function scale(){
+      let randomA = Math.random() * 2;
+      let randomB = Math.random() * 2;
+      let randomC = Math.random() * 2;
+      take.scale.set( randomA, randomB, randomC );
+      eri.scale.set( randomB, randomC, randomA );
+    }
+
+    function rotate(){
+      let randomA = Math.random() * 3;
+      let randomB = Math.random() * 3;
+      let randomC = Math.random() * 3;
+      take.rotation.set( randomA, randomB, randomC );
+      eri.rotation.set( randomB, randomC, randomA );
+    }
+
+    function reset(){
+      take.setRotationFromEuler(initialEuler);
+      eri.setRotationFromEuler(initialEuler);
+      take.scale.set(1, 1, 1);
+      eri.scale.set(1, 1, 1);
+    }
+
   }
-  
 }

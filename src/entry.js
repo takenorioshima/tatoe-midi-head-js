@@ -43,7 +43,6 @@ const onAnimationFrameHandler = (timeStamp) => {
   tatoeScene.update && tatoeScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
   controls.update();
-  animation.update(scene);
 }
 window.requestAnimationFrame(onAnimationFrameHandler);
 
