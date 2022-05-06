@@ -11,6 +11,9 @@ export default class Animation {
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
+        if (e.code == 'KeyW' && !e.repeat) {
+          showWireframes(true);
+        }
         if (e.code == 'Digit4' && !e.repeat) {
           scene.switchRotation(true)
         }
@@ -20,8 +23,8 @@ export default class Animation {
         if (e.code == 'Digit7' && !e.repeat) {
           scale(true);
         }
-        if (e.code == 'KeyW' && !e.repeat) {
-          showWireframes(true);
+        if (e.code == 'Digit8' && !e.repeat) {
+          extendGlasses(true);
         }
         if (e.code == 'Digit9' && !e.repeat) {
           rotateHat(true);
@@ -35,14 +38,20 @@ export default class Animation {
     document.addEventListener('keyup', onKeyupEvent, false);
     function onKeyupEvent(e) {
       if (window.take && window.eri) {
+        if (e.code == 'KeyW' && !e.repeat) {
+          showWireframes(false);
+        }
         if (e.code == 'Digit6' && !e.repeat) {
           rotate(false);
         }
         if (e.code == 'Digit7' && !e.repeat) {
           scale(false);
         }
-        if (e.code == 'KeyW' && !e.repeat) {
-          showWireframes(false);
+        if (e.code == 'Digit8' && !e.repeat) {
+          extendGlasses(false);
+        }
+        if (e.code == 'Digit9' && !e.repeat) {
+          rotateHat(false);
         }
         if (e.code == 'Digit9' && !e.repeat) {
           rotateHat(false);
@@ -86,7 +95,11 @@ export default class Animation {
 
     function extendGlasses(state) {
       if(state) {
-        new TWEEN.Tween(take.glassL.scale).to({ z: 1.2 }, durationBase).start();
+        new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
+        new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
+      }else{
+        new TWEEN.Tween(take.glassL.scale).to({ z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.glassR.scale).to({ z: 1 }, durationBase).start();
       }
     }
 
