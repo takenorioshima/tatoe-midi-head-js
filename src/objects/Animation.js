@@ -76,11 +76,11 @@ export default class Animation {
     }
 
     function rotateHat(state) {
-      if(state) {
+      if (state) {
         new TWEEN.Tween(eri.hat.rotation).to({ y: 90 }, durationBase).start();
         new TWEEN.Tween(eri.hat.scale).to({ x: 1.5, y: 1.3, z: 1.5 }, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to({ y: 0.25 }, durationBase).start();
-      }else{
+      } else {
         new TWEEN.Tween(eri.hat.rotation).to({ y: 0 }, durationBase).start();
         new TWEEN.Tween(eri.hat.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to({ y: 0 }, durationBase).start();
@@ -105,13 +105,13 @@ export default class Animation {
     }
 
     function switchWireframes() {
-      take.traverse((child)=>{
-        if(child.material){
+      take.traverse((child) => {
+        if (child.material) {
           child.material.wireframe = !isWireframed;
         }
       });
-      eri.traverse((child)=>{
-        if(child.material){
+      eri.traverse((child) => {
+        if (child.material) {
           child.material.wireframe = !isWireframed;
         }
       });
