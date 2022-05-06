@@ -8,10 +8,11 @@
  */
 
 import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
-import TatoeScene from './objects/Scene.js';
-import Animation from './objects/Animation.js';
+import TatoeScene from './objects/Scene';
+import Animation from './objects/Animation';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new Scene();
 const camera = new OrthographicCamera();
