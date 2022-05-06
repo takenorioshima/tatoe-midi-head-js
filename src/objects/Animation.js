@@ -7,11 +7,14 @@ export default class Animation {
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
     let isWireframed = false;
-    
+
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
+        if (e.code == 'KeyL' && !e.repeat) {
+          rotateLips(true);
+        }
         if (e.code == 'KeyW' && !e.repeat) {
           switchWireframes(true);
         }
@@ -39,6 +42,9 @@ export default class Animation {
     document.addEventListener('keyup', onKeyupEvent, false);
     function onKeyupEvent(e) {
       if (window.take && window.eri) {
+        if (e.code == 'KeyL' && !e.repeat) {
+          rotateLips(false);
+        }
         if (e.code == 'Digit6' && !e.repeat) {
           rotate(false);
         }
@@ -88,12 +94,22 @@ export default class Animation {
     }
 
     function extendGlasses(state) {
-      if(state) {
+      if (state) {
         new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
         new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
-      }else{
+      } else {
         new TWEEN.Tween(take.glassL.scale).to({ z: 1 }, durationBase).start();
         new TWEEN.Tween(take.glassR.scale).to({ z: 1 }, durationBase).start();
+      }
+    }
+
+    function rotateLips(state) {
+      if (state) {
+        new TWEEN.Tween(take.lipTop.rotation).to({ y: 3 }, durationBase * 2).start();
+        new TWEEN.Tween(take.lipBottom.rotation).to({ y: -3 }, durationBase * 2).start();
+      } else {
+        new TWEEN.Tween(take.lipTop.rotation).to({ y: 0 }, durationBase * 2).start();
+        new TWEEN.Tween(take.lipBottom.rotation).to({ y: 0 }, durationBase * 2).start();
       }
     }
 
