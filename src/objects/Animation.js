@@ -6,8 +6,7 @@ export default class Animation {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
-    let is_scene_rolling = false;
-
+    
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
@@ -26,7 +25,6 @@ export default class Animation {
 
     document.addEventListener('keydown', onKeydownEvent, false);
     function onKeydownEvent(e) {
-      4
       if (window.take && window.eri) {
         if (e.code == 'Digit4') {
           scene.switchRotation(true)
