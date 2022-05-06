@@ -51,14 +51,10 @@ export default class Animation {
         if (e.code == 'Digit9' && !e.repeat) {
           rotateHat(false);
         }
-        if (e.code == 'Digit9' && !e.repeat) {
-          rotateHat(false);
-        }
       }
     }
 
     function scale(state) {
-      console.log(state);
       if (state) {
         let randomA = Math.random() * 2;
         let randomB = Math.random() * 2;
