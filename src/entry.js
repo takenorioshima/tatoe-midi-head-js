@@ -11,8 +11,8 @@ import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
 import TatoeScene from './objects/Scene';
 import Animation from './objects/Animation';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import Stats from 'three/examples/jsm/libs/stats.module';
 
 const scene = new Scene();
 const camera = new OrthographicCamera();
@@ -20,6 +20,10 @@ const renderer = new WebGLRenderer({ antialias: true });
 const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
 const animation = new Animation(tatoeScene);
+
+// Stats
+const stats = new Stats();
+stats.showPanel(0);
 
 // load state
 window.objectsLoaded = 0;
@@ -44,6 +48,7 @@ renderer.setClearColor(0xB7BC9B, 1);
 // render loop
 const onAnimationFrameHandler = (timeStamp) => {
   TWEEN.update();
+  stats.update();
   renderer.render(scene, camera);
   tatoeScene.update && tatoeScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
@@ -70,3 +75,4 @@ window.addEventListener('resize', windowResizeHanlder);
 // dom
 document.body.style.margin = 0;
 document.body.appendChild(renderer.domElement);
+document.body.appendChild(stats.dom);
