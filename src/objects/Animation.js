@@ -20,6 +20,9 @@ export default class Animation {
         if (e.code == 'Digit7' && !e.repeat) {
           scale(true);
         }
+        if (e.code == 'Digit8' && !e.repeat) {
+          showWireframes(true);
+        }
         if (e.code == 'Digit0' && !e.repeat) {
           reset();
         }
@@ -34,6 +37,9 @@ export default class Animation {
         }
         if (e.code == 'Digit7' && !e.repeat) {
           scale(false);
+        }
+        if (e.code == 'Digit8' && !e.repeat) {
+          showWireframes(false);
         }
       }
     }
@@ -67,11 +73,19 @@ export default class Animation {
       eri.scale.set(1, 1, 1);
     }
 
+    function showWireframes(state) {
+      scene.traverse((child)=>{
+        console.log(child.material);
+        if(child.material){
+          child.material.wireframe = state;
+        }
+      });
+    }
+
   }
 
   init(scene) {
     if (!window.take || !window.eri) {
-      console.log('init');
       window.take = scene.getObjectByName('take');
       window.eri = scene.getObjectByName('eri');
     }
