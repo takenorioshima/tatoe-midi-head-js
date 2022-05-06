@@ -6,39 +6,50 @@ export default class Animation {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
-    
+
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
-        if (e.code == 'Digit6') {
-          rotate();
+        if (e.code == 'Digit4' && !e.repeat) {
+          scene.switchRotation(true)
         }
-        if (e.code == 'Digit7') {
-          scale();
+        if (e.code == 'Digit6' && !e.repeat) {
+          rotate(true);
         }
-        if (e.code == 'Digit0') {
+        if (e.code == 'Digit7' && !e.repeat) {
+          scale(true);
+        }
+        if (e.code == 'Digit0' && !e.repeat) {
           reset();
         }
       }
     }
 
-    document.addEventListener('keydown', onKeydownEvent, false);
-    function onKeydownEvent(e) {
+    document.addEventListener('keyup', onKeyupEvent, false);
+    function onKeyupEvent(e) {
       if (window.take && window.eri) {
-        if (e.code == 'Digit4') {
-          scene.switchRotation(true)
+        if (e.code == 'Digit6' && !e.repeat) {
+          rotate(false);
+        }
+        if (e.code == 'Digit7' && !e.repeat) {
+          scale(false);
         }
       }
     }
 
-    function scale() {
-      let randomA = Math.random() * 2;
-      let randomB = Math.random() * 2;
-      let randomC = Math.random() * 2;
-      new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
-      new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
-      console.log(window.eriScale);
+    function scale(state) {
+      console.log(state);
+      if (state) {
+        let randomA = Math.random() * 2;
+        let randomB = Math.random() * 2;
+        let randomC = Math.random() * 2;
+        new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
+        new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
+      } else {
+        new TWEEN.Tween(take.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(eri.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+      }
     }
 
     function rotate() {
