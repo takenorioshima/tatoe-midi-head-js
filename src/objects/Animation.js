@@ -6,13 +6,14 @@ export default class Animation {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
-
+    let isWireframed = false;
+    
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
         if (e.code == 'KeyW' && !e.repeat) {
-          showWireframes(true);
+          switchWireframes(true);
         }
         if (e.code == 'Digit4' && !e.repeat) {
           scene.switchRotation(true)
@@ -38,9 +39,6 @@ export default class Animation {
     document.addEventListener('keyup', onKeyupEvent, false);
     function onKeyupEvent(e) {
       if (window.take && window.eri) {
-        if (e.code == 'KeyW' && !e.repeat) {
-          showWireframes(false);
-        }
         if (e.code == 'Digit6' && !e.repeat) {
           rotate(false);
         }
@@ -110,13 +108,18 @@ export default class Animation {
       eri.scale.set(1, 1, 1);
     }
 
-    function showWireframes(state) {
-      scene.traverse((child)=>{
-        console.log(child.material);
+    function switchWireframes() {
+      take.traverse((child)=>{
         if(child.material){
-          child.material.wireframe = state;
+          child.material.wireframe = !isWireframed;
         }
       });
+      eri.traverse((child)=>{
+        if(child.material){
+          child.material.wireframe = !isWireframed;
+        }
+      });
+      isWireframed = !isWireframed;
     }
 
   }
