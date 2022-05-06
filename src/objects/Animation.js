@@ -20,7 +20,7 @@ export default class Animation {
         if (e.code == 'Digit7' && !e.repeat) {
           scale(true);
         }
-        if (e.code == 'Digit8' && !e.repeat) {
+        if (e.code == 'KeyW' && !e.repeat) {
           showWireframes(true);
         }
         if (e.code == 'Digit9' && !e.repeat) {
@@ -41,7 +41,7 @@ export default class Animation {
         if (e.code == 'Digit7' && !e.repeat) {
           scale(false);
         }
-        if (e.code == 'Digit8' && !e.repeat) {
+        if (e.code == 'KeyW' && !e.repeat) {
           showWireframes(false);
         }
         if (e.code == 'Digit9' && !e.repeat) {
@@ -81,6 +81,12 @@ export default class Animation {
         new TWEEN.Tween(eri.hat.rotation).to({ y: 0 }, durationBase).start();
         new TWEEN.Tween(eri.hat.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to({ y: 0 }, durationBase).start();
+      }
+    }
+
+    function extendGlasses(state) {
+      if(state) {
+        new TWEEN.Tween(take.glassL.scale).to({ z: 1.2 }, durationBase).start();
       }
     }
 
