@@ -23,6 +23,9 @@ export default class Animation {
         if (e.code == 'Digit8' && !e.repeat) {
           showWireframes(true);
         }
+        if (e.code == 'Digit9' && !e.repeat) {
+          rotateHat(true);
+        }
         if (e.code == 'Digit0' && !e.repeat) {
           reset();
         }
@@ -40,6 +43,9 @@ export default class Animation {
         }
         if (e.code == 'Digit8' && !e.repeat) {
           showWireframes(false);
+        }
+        if (e.code == 'Digit9' && !e.repeat) {
+          rotateHat(false);
         }
       }
     }
@@ -64,6 +70,18 @@ export default class Animation {
       let randomC = Math.random() * 3;
       new TWEEN.Tween(take.rotation).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
       new TWEEN.Tween(eri.rotation).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
+    }
+
+    function rotateHat(state) {
+      if(state) {
+        new TWEEN.Tween(eri.hat.rotation).to({ y: 90 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.scale).to({ x: 1.5, y: 1.3, z: 1.5 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.position).to({ y: 0.25 }, durationBase).start();
+      }else{
+        new TWEEN.Tween(eri.hat.rotation).to({ y: 0 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.position).to({ y: 0 }, durationBase).start();
+      }
     }
 
     function reset() {
