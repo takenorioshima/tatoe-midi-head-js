@@ -21,6 +21,7 @@ export default class Take extends Group {
       this.glassR = this.getObjectByName('glassR');
       this.glassFrame = this.getObjectByName('glassFrame');
       window.take = this;
+      window.objectsLoaded++;
     });
   }
 }

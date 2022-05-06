@@ -1,6 +1,7 @@
 import { Group } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './Eri.glb';
+import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
 
 export default class Eri extends Group {
   constructor() {
@@ -20,7 +21,7 @@ export default class Eri extends Group {
       this.eyes = this.getObjectByName('eyes');
       this.nose = this.getObjectByName('nose');
       this.strow = this.getObjectByName('strow');
-      window.eri = this;
+      window.objectsLoaded++;
     });
   }
 }
