@@ -1,10 +1,10 @@
 /**
  * entry.js
- * 
- * This is the first file loaded. It sets up the Renderer, 
- * Scene and Camera. It also starts the render loop and 
+ *
+ * This is the first file loaded. It sets up the Renderer,
+ * Scene and Camera. It also starts the render loop and
  * handles window resizes.
- * 
+ *
  */
 
 import { WebGLRenderer, OrthographicCamera, Scene, Vector3 } from 'three';
@@ -38,7 +38,7 @@ camera.position.set(1, 1, 1);
 camera.zoom = 1.5;
 camera.lookAt(new Vector3(0, 0, 0));
 
-// orbit contolls
+// orbit controls
 controls.update();
 
 // renderer
