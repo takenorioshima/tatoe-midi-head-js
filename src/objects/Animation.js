@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
 
 export default class Animation {
-  constructor(scene) {
+  constructor(scene, camera) {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
@@ -12,6 +12,9 @@ export default class Animation {
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
+        if (e.code == 'KeyC' && !e.repeat) {
+          changeCameraPosition();
+        }
         if (e.code == 'KeyL' && !e.repeat) {
           rotateLips(true);
         }
@@ -58,6 +61,14 @@ export default class Animation {
           rotateHat(false);
         }
       }
+    }
+
+    function changeCameraPosition(){
+      let degree = Math.random() * 360;
+      let radian = (degree*Math.PI) / 180;
+      let height = (Math.random() * 2) - 1;
+      console.log(Math.cos(radian));
+      new TWEEN.Tween(camera.position).to({ x: Math.sin(radian), y:height, z: Math.cos(radian) }, durationBase).start();
     }
 
     function scale(state) {
@@ -118,6 +129,7 @@ export default class Animation {
       eri.setRotationFromEuler(initialEuler);
       take.scale.set(1, 1, 1);
       eri.scale.set(1, 1, 1);
+      camera.position.set(1, 1, 1);
     }
 
     function switchWireframes() {

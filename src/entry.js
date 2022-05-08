@@ -19,7 +19,7 @@ const camera = new OrthographicCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
-const animation = new Animation(tatoeScene);
+const animation = new Animation(tatoeScene, camera);
 
 // Stats
 const stats = new Stats();
@@ -50,6 +50,7 @@ const onAnimationFrameHandler = (timeStamp) => {
   TWEEN.update();
   stats.update();
   renderer.render(scene, camera);
+  camera.lookAt(new Vector3(0, 0, 0));
   tatoeScene.update && tatoeScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
   controls.update();
