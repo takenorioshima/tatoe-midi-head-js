@@ -34,7 +34,7 @@ window.eri = null;
 scene.add(tatoeScene);
 
 // camera
-camera.position.set(1, 1, 1);
+camera.position.set(10, 10, 10);
 camera.zoom = 1.5;
 camera.lookAt(new Vector3(0, 0, 0));
 
@@ -50,7 +50,6 @@ const onAnimationFrameHandler = (timeStamp) => {
   TWEEN.update();
   stats.update();
   renderer.render(scene, camera);
-  camera.lookAt(new Vector3(0, 0, 0));
   tatoeScene.update && tatoeScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
   controls.update();

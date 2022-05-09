@@ -63,12 +63,15 @@ export default class Animation {
       }
     }
 
-    function changeCameraPosition(){
-      let degree = Math.random() * 360;
-      let radian = (degree*Math.PI) / 180;
-      let height = (Math.random() * 2) - 1;
-      console.log(Math.cos(radian));
-      new TWEEN.Tween(camera.position).to({ x: Math.sin(radian), y:height, z: Math.cos(radian) }, durationBase).start();
+    function changeCameraPosition() {
+      let radius = 10;
+      let phi = ( Math.random() * 360 ) * Math.PI / 180;
+      let theta = ( Math.random() * 180 ) * Math.PI / 180;
+      let x =  -1 * radius * Math.cos(phi) * Math.cos(theta);
+      let y = radius * Math.sin(phi);
+      let z = radius * Math.cos(phi) * Math.sin(theta);
+      console.log(x +', '+ y + ', ' + z);
+      camera.position.set(x, y, z);
     }
 
     function scale(state) {
