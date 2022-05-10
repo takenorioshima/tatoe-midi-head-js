@@ -145,7 +145,7 @@ export default class Animation {
       eri.setRotationFromEuler(initialEuler);
       take.scale.set(1, 1, 1);
       eri.scale.set(1, 1, 1);
-      camera.position.set(1, 1, 1);
+      camera.position.set(10, 10, 10);
     }
 
     function switchWireframes() {
