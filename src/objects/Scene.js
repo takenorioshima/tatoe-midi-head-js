@@ -17,12 +17,8 @@ export default class TatoeScene extends Group {
     this.add(take, eri, lights);
   }
 
-  switchRotation() {
-    if (this.isRotation) {
-      this.isRotation = false;
-    } else {
-      this.isRotation = true;
-    }
+  toggleRotation() {
+    this.isRotation = !this.isRotation;
   }
 
   update(timeStamp) {

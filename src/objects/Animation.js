@@ -27,7 +27,7 @@ export default class Animation {
           switchWireframes(true);
         }
         if (e.code == 'Digit4' && !e.repeat) {
-          scene.switchRotation(true)
+          toggleRotation()
         }
         if (e.code == 'Digit6' && !e.repeat) {
           rotate(true);
@@ -98,6 +98,10 @@ export default class Animation {
         new TWEEN.Tween(take.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
         new TWEEN.Tween(eri.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
       }
+    }
+
+    function toggleRotation(){
+      scene.toggleRotation();
     }
 
     function rotate() {
