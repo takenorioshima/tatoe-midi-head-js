@@ -10,41 +10,47 @@ export default class Animation {
     const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
     let backgroundColorsIndex = 0;
 
+    function targetKey(e, code) {
+      if (e.code == code && !e.repeat) {
+        return true;
+      }
+    }
+
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
-        if (e.code == 'KeyB' && !e.repeat) {
+        if (targetKey(e, 'KeyB')) {
           changeBackgroundColor();
         }
-        if (e.code == 'KeyC' && !e.repeat) {
+        if (targetKey(e, 'KeyC')) {
           changeCameraPosition();
         }
-        if (e.code == 'KeyL' && !e.repeat) {
+        if (targetKey(e, 'KeyL')) {
           rotateLips(true);
         }
-        if (e.code == 'KeyS' && !e.repeat) {
+        if (targetKey(e, 'KeyS')) {
           shrinkHeads();
         }
-        if (e.code == 'KeyW' && !e.repeat) {
+        if (targetKey(e, 'KeyW')) {
           switchWireframes(true);
         }
-        if (e.code == 'Digit4' && !e.repeat) {
+        if (targetKey(e, 'Digit4')) {
           toggleRotation()
         }
-        if (e.code == 'Digit6' && !e.repeat) {
+        if (targetKey(e, 'Digit6')) {
           rotate(true);
         }
-        if (e.code == 'Digit7' && !e.repeat) {
+        if (targetKey(e, 'Digit7')) {
           scale(true);
         }
-        if (e.code == 'Digit8' && !e.repeat) {
+        if (targetKey(e, 'Digit8')) {
           extendGlasses(true);
         }
-        if (e.code == 'Digit9' && !e.repeat) {
+        if (targetKey(e, 'Digit9')) {
           rotateHat(true);
         }
-        if (e.code == 'Digit0' && !e.repeat) {
+        if (targetKey(e, 'Digit0')) {
           reset();
         }
       }
@@ -53,19 +59,19 @@ export default class Animation {
     document.addEventListener('keyup', onKeyupEvent, false);
     function onKeyupEvent(e) {
       if (window.take && window.eri) {
-        if (e.code == 'KeyL' && !e.repeat) {
+        if (targetKey(e, 'KeyL')) {
           rotateLips(false);
         }
-        if (e.code == 'Digit6' && !e.repeat) {
+        if (targetKey(e, 'Digit6')) {
           rotate(false);
         }
-        if (e.code == 'Digit7' && !e.repeat) {
+        if (targetKey(e, 'Digit7')) {
           scale(false);
         }
-        if (e.code == 'Digit8' && !e.repeat) {
+        if (targetKey(e, 'Digit8')) {
           extendGlasses(false);
         }
-        if (e.code == 'Digit9' && !e.repeat) {
+        if (targetKey(e, 'Digit9')) {
           rotateHat(false);
         }
       }
