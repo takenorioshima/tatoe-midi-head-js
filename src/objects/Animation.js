@@ -2,16 +2,21 @@ import * as THREE from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
 
 export default class Animation {
-  constructor(scene, camera) {
+  constructor(scene, camera, renderer) {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     const durationBase = 100;
     let isWireframed = false;
+    const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
+    let backgroundColorsIndex = 0;
 
     document.addEventListener('keypress', onKeypressEvent, false);
     function onKeypressEvent(e) {
       console.log(e);
       if (window.take && window.eri) {
+        if (e.code == 'KeyB' && !e.repeat) {
+          changeBackgroundColor();
+        }
         if (e.code == 'KeyC' && !e.repeat) {
           changeCameraPosition();
         }
@@ -60,6 +65,14 @@ export default class Animation {
         if (e.code == 'Digit9' && !e.repeat) {
           rotateHat(false);
         }
+      }
+    }
+
+    function changeBackgroundColor(){
+      renderer.setClearColor(backgroundColors[backgroundColorsIndex], 1);
+      backgroundColorsIndex++;
+      if( backgroundColorsIndex >= backgroundColors.length){
+        backgroundColorsIndex = 0;
       }
     }
 

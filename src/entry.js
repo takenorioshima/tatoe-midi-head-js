@@ -19,7 +19,7 @@ const camera = new OrthographicCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
-const animation = new Animation(tatoeScene, camera);
+const animation = new Animation(tatoeScene, camera, renderer);
 
 // Stats
 const stats = new Stats();
