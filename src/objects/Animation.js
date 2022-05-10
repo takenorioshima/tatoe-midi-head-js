@@ -146,6 +146,17 @@ export default class Animation {
       take.scale.set(1, 1, 1);
       eri.scale.set(1, 1, 1);
       camera.position.set(10, 10, 10);
+      take.traverse((child) => {
+        if (child.material) {
+          child.material.wireframe = false;
+        }
+      });
+      eri.traverse((child) => {
+        if (child.material) {
+          child.material.wireframe = false;
+        }
+      });
+      isWireframed = false;
     }
 
     function switchWireframes() {
