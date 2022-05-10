@@ -23,6 +23,9 @@ export default class Animation {
         if (e.code == 'KeyL' && !e.repeat) {
           rotateLips(true);
         }
+        if (e.code == 'KeyS' && !e.repeat) {
+          shrinkHeads();
+        }
         if (e.code == 'KeyW' && !e.repeat) {
           switchWireframes(true);
         }
@@ -140,6 +143,21 @@ export default class Animation {
       }
     }
 
+    function shrinkHeads() {
+      if (!take.head.isShrinked && !eri.head.isShrinked) {
+        new TWEEN.Tween(take.head.scale).to({ x: 0, y: 0, z: 0 }, durationBase).start();
+        new TWEEN.Tween(eri.head.scale).to({ x: 0, y: 0, z: 0 }, durationBase).start();
+        take.head.isShrinked = true;
+        eri.head.isShrinked = true;
+        console.log(take.head.isShrinked);
+      } else {
+        new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        take.head.isShrinked = false;
+        eri.head.isShrinked = false;
+      }
+    }
+
     function switchWireframes() {
       take.traverse((child) => {
         if (child.material) {
@@ -161,9 +179,12 @@ export default class Animation {
     function reset() {
       take.setRotationFromEuler(initialEuler);
       eri.setRotationFromEuler(initialEuler);
+
       take.scale.set(1, 1, 1);
       eri.scale.set(1, 1, 1);
+
       camera.position.set(10, 10, 10);
+
       take.traverse((child) => {
         if (child.material) {
           child.material.wireframe = false;
@@ -175,6 +196,11 @@ export default class Animation {
         }
       });
       isWireframed = false;
+
+      new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+      new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+      take.head.isShrinked = false;
+      eri.head.isShrinked = false;
     }
 
   }
