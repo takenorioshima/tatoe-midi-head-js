@@ -80,12 +80,12 @@ export default class Animation {
     }
 
     function changeCameraPosition() {
-      let radius = 10;
-      let phi = (Math.random() * 360) * Math.PI / 180;
-      let theta = (Math.random() * 180) * Math.PI / 180;
-      let x = -1 * radius * Math.cos(phi) * Math.cos(theta);
-      let y = radius * Math.sin(phi);
-      let z = radius * Math.cos(phi) * Math.sin(theta);
+      const radius = 10;
+      const phi = (Math.random() * 360) * Math.PI / 180;
+      const theta = (Math.random() * 180) * Math.PI / 180;
+      const x = -1 * radius * Math.cos(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi);
+      const z = radius * Math.cos(phi) * Math.sin(theta);
       console.log(x + ', ' + y + ', ' + z);
       camera.position.set(x, y, z);
     }
@@ -101,9 +101,9 @@ export default class Animation {
     }
 
     function rotate() {
-      let randomA = Math.random() * 3;
-      let randomB = Math.random() * 3;
-      let randomC = Math.random() * 3;
+      const randomA = Math.random() * 3;
+      const randomB = Math.random() * 3;
+      const randomC = Math.random() * 3;
       new TWEEN.Tween(take.rotation).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
       new TWEEN.Tween(eri.rotation).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
     }
@@ -132,9 +132,9 @@ export default class Animation {
 
     function scale(state) {
       if (state) {
-        let randomA = Math.random() * 2;
-        let randomB = Math.random() * 2;
-        let randomC = Math.random() * 2;
+        const randomA = Math.random() * 2;
+        const randomB = Math.random() * 2;
+        const randomC = Math.random() * 2;
         new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
         new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
       } else {
