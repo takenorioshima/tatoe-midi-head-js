@@ -68,40 +68,33 @@ export default class Animation {
       }
     }
 
-    function changeBackgroundColor(){
+    function changeBackgroundColor() {
       renderer.setClearColor(backgroundColors[backgroundColorsIndex], 1);
       backgroundColorsIndex++;
-      if( backgroundColorsIndex >= backgroundColors.length){
+      if (backgroundColorsIndex >= backgroundColors.length) {
         backgroundColorsIndex = 0;
       }
     }
 
     function changeCameraPosition() {
       let radius = 10;
-      let phi = ( Math.random() * 360 ) * Math.PI / 180;
-      let theta = ( Math.random() * 180 ) * Math.PI / 180;
-      let x =  -1 * radius * Math.cos(phi) * Math.cos(theta);
+      let phi = (Math.random() * 360) * Math.PI / 180;
+      let theta = (Math.random() * 180) * Math.PI / 180;
+      let x = -1 * radius * Math.cos(phi) * Math.cos(theta);
       let y = radius * Math.sin(phi);
       let z = radius * Math.cos(phi) * Math.sin(theta);
-      console.log(x +', '+ y + ', ' + z);
+      console.log(x + ', ' + y + ', ' + z);
       camera.position.set(x, y, z);
     }
 
-    function scale(state) {
+    function extendGlasses(state) {
       if (state) {
-        let randomA = Math.random() * 2;
-        let randomB = Math.random() * 2;
-        let randomC = Math.random() * 2;
-        new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
-        new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
+        new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
+        new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
       } else {
-        new TWEEN.Tween(take.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
-        new TWEEN.Tween(eri.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.glassL.scale).to({ z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.glassR.scale).to({ z: 1 }, durationBase).start();
       }
-    }
-
-    function toggleRotation(){
-      scene.toggleRotation();
     }
 
     function rotate() {
@@ -124,16 +117,6 @@ export default class Animation {
       }
     }
 
-    function extendGlasses(state) {
-      if (state) {
-        new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
-        new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
-      } else {
-        new TWEEN.Tween(take.glassL.scale).to({ z: 1 }, durationBase).start();
-        new TWEEN.Tween(take.glassR.scale).to({ z: 1 }, durationBase).start();
-      }
-    }
-
     function rotateLips(state) {
       if (state) {
         new TWEEN.Tween(take.lipTop.rotation).to({ y: 3 }, durationBase * 2).start();
@@ -142,6 +125,37 @@ export default class Animation {
         new TWEEN.Tween(take.lipTop.rotation).to({ y: 0 }, durationBase * 2).start();
         new TWEEN.Tween(take.lipBottom.rotation).to({ y: 0 }, durationBase * 2).start();
       }
+    }
+
+    function scale(state) {
+      if (state) {
+        let randomA = Math.random() * 2;
+        let randomB = Math.random() * 2;
+        let randomC = Math.random() * 2;
+        new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
+        new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
+      } else {
+        new TWEEN.Tween(take.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(eri.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+      }
+    }
+
+    function switchWireframes() {
+      take.traverse((child) => {
+        if (child.material) {
+          child.material.wireframe = !isWireframed;
+        }
+      });
+      eri.traverse((child) => {
+        if (child.material) {
+          child.material.wireframe = !isWireframed;
+        }
+      });
+      isWireframed = !isWireframed;
+    }
+
+    function toggleRotation() {
+      scene.toggleRotation();
     }
 
     function reset() {
@@ -161,20 +175,6 @@ export default class Animation {
         }
       });
       isWireframed = false;
-    }
-
-    function switchWireframes() {
-      take.traverse((child) => {
-        if (child.material) {
-          child.material.wireframe = !isWireframed;
-        }
-      });
-      eri.traverse((child) => {
-        if (child.material) {
-          child.material.wireframe = !isWireframed;
-        }
-      });
-      isWireframed = !isWireframed;
     }
 
   }
