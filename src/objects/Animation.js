@@ -5,6 +5,8 @@ export default class Animation {
   constructor(scene, camera, renderer) {
 
     const initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
+    const initialScale = {x: 1, y: 1, z: 1};
+    const origin = {x: 0, y: 0, z: 0};
     const durationBase = 100;
     let isWireframed = false;
     const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
@@ -33,7 +35,8 @@ export default class Animation {
           shrinkHeads();
         }
         if (targetKey(e, 'KeyW')) {
-          switchWireframes(true);
+          isWireframed = !isWireframed;
+          switchWireframes(isWireframed);
         }
         if (targetKey(e, 'Digit4')) {
           toggleRotation()
@@ -101,8 +104,8 @@ export default class Animation {
         new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
         new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
       } else {
-        new TWEEN.Tween(take.glassL.scale).to({ z: 1 }, durationBase).start();
-        new TWEEN.Tween(take.glassR.scale).to({ z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.glassL.scale).to(initialScale, durationBase).start();
+        new TWEEN.Tween(take.glassR.scale).to(initialScale, durationBase).start();
       }
     }
 
@@ -120,9 +123,9 @@ export default class Animation {
         new TWEEN.Tween(eri.hat.scale).to({ x: 1.5, y: 1.3, z: 1.5 }, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to({ y: 0.25 }, durationBase).start();
       } else {
-        new TWEEN.Tween(eri.hat.rotation).to({ y: 0 }, durationBase).start();
-        new TWEEN.Tween(eri.hat.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
-        new TWEEN.Tween(eri.hat.position).to({ y: 0 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.rotation).to(origin, durationBase).start();
+        new TWEEN.Tween(eri.hat.scale).to(initialScale, durationBase).start();
+        new TWEEN.Tween(eri.hat.position).to(origin, durationBase).start();
       }
     }
 
@@ -131,8 +134,8 @@ export default class Animation {
         new TWEEN.Tween(take.lipTop.rotation).to({ y: 3 }, durationBase * 2).start();
         new TWEEN.Tween(take.lipBottom.rotation).to({ y: -3 }, durationBase * 2).start();
       } else {
-        new TWEEN.Tween(take.lipTop.rotation).to({ y: 0 }, durationBase * 2).start();
-        new TWEEN.Tween(take.lipBottom.rotation).to({ y: 0 }, durationBase * 2).start();
+        new TWEEN.Tween(take.lipTop.rotation).to(origin, durationBase * 2).start();
+        new TWEEN.Tween(take.lipBottom.rotation).to(origin, durationBase * 2).start();
       }
     }
 
@@ -144,38 +147,37 @@ export default class Animation {
         new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
         new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
       } else {
-        new TWEEN.Tween(take.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
-        new TWEEN.Tween(eri.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.scale).to(initialScale, durationBase).start();
+        new TWEEN.Tween(eri.scale).to(initialScale, durationBase).start();
       }
     }
 
     function shrinkHeads() {
       if (!take.head.isShrinked && !eri.head.isShrinked) {
-        new TWEEN.Tween(take.head.scale).to({ x: 0, y: 0, z: 0 }, durationBase).start();
-        new TWEEN.Tween(eri.head.scale).to({ x: 0, y: 0, z: 0 }, durationBase).start();
+        new TWEEN.Tween(take.head.scale).to(origin, durationBase).start();
+        new TWEEN.Tween(eri.head.scale).to(origin, durationBase).start();
         take.head.isShrinked = true;
         eri.head.isShrinked = true;
         console.log(take.head.isShrinked);
       } else {
-        new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
-        new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+        new TWEEN.Tween(take.head.scale).to(initialScale, durationBase).start();
+        new TWEEN.Tween(eri.head.scale).to(initialScale, durationBase).start();
         take.head.isShrinked = false;
         eri.head.isShrinked = false;
       }
     }
 
-    function switchWireframes() {
+    function switchWireframes(state) {
       take.traverse((child) => {
         if (child.material) {
-          child.material.wireframe = !isWireframed;
+          child.material.wireframe = state;
         }
       });
       eri.traverse((child) => {
         if (child.material) {
-          child.material.wireframe = !isWireframed;
+          child.material.wireframe = state;
         }
       });
-      isWireframed = !isWireframed;
     }
 
     function toggleRotation() {
@@ -186,10 +188,7 @@ export default class Animation {
       take.setRotationFromEuler(initialEuler);
       eri.setRotationFromEuler(initialEuler);
 
-      take.scale.set(1, 1, 1);
-      eri.scale.set(1, 1, 1);
-
-      camera.position.set(10, 10, 10);
+      camera.position.set(0, 0, 10);
 
       take.traverse((child) => {
         if (child.material) {
@@ -203,8 +202,8 @@ export default class Animation {
       });
       isWireframed = false;
 
-      new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
-      new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 1 }, durationBase).start();
+      new TWEEN.Tween(take.head.scale).to(initialScale, durationBase).start();
+      new TWEEN.Tween(eri.head.scale).to(initialScale, durationBase).start();
       take.head.isShrinked = false;
       eri.head.isShrinked = false;
     }
