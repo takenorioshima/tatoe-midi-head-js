@@ -20,8 +20,16 @@ export default class Animation {
 
     WebMidi.enable().then(onMidiEnabled).catch(err => alert(err));
 
-    function onMidiEnabled(){
-      console.log('MIDI enabled.');
+    function onMidiEnabled() {
+      if (WebMidi.inputs.length < 1) {
+        console.log('No device detected.');
+      } else {
+        console.log(`${WebMidi.inputs[0].name} was detected.`);
+        const midiInput = WebMidi.getInputByName(WebMidi.inputs[0].name);
+        midiInput.addListener("noteon", e => {
+          console.log(e.note.identifier);
+        })
+      }
     }
 
     /**
