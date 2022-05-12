@@ -34,8 +34,7 @@ export default class Animation {
       }
     }
 
-    document.addEventListener('keypress', onKeypressEvent, false);
-    function onKeypressEvent(e) {
+    document.addEventListener('keypress', e => {
       console.log(e);
       if (window.take && window.eri) {
         if (targetKey(e, 'KeyB')) {
@@ -62,7 +61,7 @@ export default class Animation {
           toggleRotation()
         }
         if (targetKey(e, 'Digit6')) {
-          rotate(true);
+          rotate();
         }
         if (targetKey(e, 'Digit7')) {
           scale(true);
@@ -77,16 +76,15 @@ export default class Animation {
           reset();
         }
       }
-    }
+    }, false);
 
-    document.addEventListener('keyup', onKeyupEvent, false);
-    function onKeyupEvent(e) {
+    document.addEventListener('keyup', e => {
       if (window.take && window.eri) {
         if (targetKey(e, 'KeyL')) {
           rotateLips(false);
         }
         if (targetKey(e, 'Digit6')) {
-          rotate(false);
+          rotate();
         }
         if (targetKey(e, 'Digit7')) {
           scale(false);
@@ -98,7 +96,7 @@ export default class Animation {
           rotateHat(false);
         }
       }
-    }
+    }, false);
 
     /**
      * Animations.
@@ -184,62 +182,36 @@ export default class Animation {
         new TWEEN.Tween(eri.strow.scale).to({ x: 4, y: 4, z: 4 }, durationBase).start();
 
       } else {
+
+        const objectsToReset = [
+          take.glassL,
+          take.glassR,
+          take.lipTop,
+          take.lipBottom,
+          take.cap,
+          take.glassFrame,
+          take.head,
+          take.nose,
+          eri.hat,
+          eri.hair,
+          eri.head,
+          eri.eyes,
+          eri.nose,
+          eri.earL,
+          eri.earR,
+          eri.strow,
+        ];
+
+        objectsToReset.forEach(target => {
+          new TWEEN.Tween(target.position).to(origin, durationBase).start();
+          new TWEEN.Tween(target.rotation).to(origin, durationBase).start();
+          new TWEEN.Tween(target.scale).to(initialScale, durationBase).start();
+        });
+
         new TWEEN.Tween(take.glassL.position).to(window.initialPositions.take.glassL, durationBase).start();
-        new TWEEN.Tween(take.glassL.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.glassL.scale).to(initialScale, durationBase).start();
-
         new TWEEN.Tween(take.glassR.position).to(window.initialPositions.take.glassR, durationBase).start();
-        new TWEEN.Tween(take.glassR.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.glassR.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(take.glassFrame.position).to(origin, durationBase).start();
-        new TWEEN.Tween(take.glassFrame.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.glassFrame.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(take.cap.position).to(origin, durationBase).start();
-        new TWEEN.Tween(take.cap.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.cap.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(take.head.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.head.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(take.nose.position).to(origin, durationBase).start();
-        new TWEEN.Tween(take.nose.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.nose.scale).to(initialScale, durationBase).start();
-
         new TWEEN.Tween(take.lipTop.position).to(window.initialPositions.take.lipTop, durationBase).start();
-        new TWEEN.Tween(take.lipTop.scale).to(initialScale, durationBase).start();
         new TWEEN.Tween(take.lipBottom.position).to(window.initialPositions.take.lipBottom, durationBase).start();
-        new TWEEN.Tween(take.lipBottom.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(take.lipBottom.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.hat.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.hat.rotation).to(origin, durationBase).start();
-
-        new TWEEN.Tween(eri.hair.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.hair.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.hair.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.head.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.head.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.eyes.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.eyes.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.nose.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.nose.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.nose.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.earL.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.earL.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.earL.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.earR.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.earR.rotation).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.earR.scale).to(initialScale, durationBase).start();
-
-        new TWEEN.Tween(eri.strow.position).to(origin, durationBase).start();
-        new TWEEN.Tween(eri.strow.scale).to(initialScale, durationBase).start();
 
       }
     }
