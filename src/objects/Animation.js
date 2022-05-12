@@ -21,6 +21,10 @@ export default class Animation {
       console.log('MIDI enabled.');
     }
 
+    /**
+     * Listen keyboard events.
+     */
+
     function targetKey(e, code) {
       if (e.code == code && !e.repeat) {
         return true;
@@ -87,6 +91,10 @@ export default class Animation {
         }
       }
     }
+
+    /**
+     * Animations.
+     */
 
     function changeBackgroundColor() {
       renderer.setClearColor(backgroundColors[backgroundColorsIndex], 1);
@@ -192,6 +200,10 @@ export default class Animation {
     function toggleRotation() {
       scene.toggleRotation();
     }
+
+    /**
+     * Reset animations.
+     */
 
     function reset() {
       take.setRotationFromEuler(initialEuler);
