@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
+import { WebMidi } from 'webmidi';
 
 export default class Animation {
   constructor(scene, camera, renderer) {
@@ -9,6 +10,16 @@ export default class Animation {
     let isWireframed = false;
     const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
     let backgroundColorsIndex = 0;
+
+    /**
+     * Listen MIDI events.
+     */
+
+    WebMidi.enable().then(onMidiEnabled).catch(err => alert(err));
+
+    function onMidiEnabled(){
+      console.log('MIDI enabled.');
+    }
 
     function targetKey(e, code) {
       if (e.code == code && !e.repeat) {
