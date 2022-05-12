@@ -117,7 +117,6 @@ export default class Animation {
       const x = -1 * radius * Math.cos(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi);
       const z = radius * Math.cos(phi) * Math.sin(theta);
-      console.log(x + ', ' + y + ', ' + z);
       camera.position.set(x, y, z);
     }
 
@@ -275,7 +274,6 @@ export default class Animation {
         new TWEEN.Tween(eri.head.scale).to(origin, durationBase).start();
         take.head.isShrinked = true;
         eri.head.isShrinked = true;
-        console.log(take.head.isShrinked);
       } else {
         new TWEEN.Tween(take.head.scale).to(initialScale, durationBase).start();
         new TWEEN.Tween(eri.head.scale).to(initialScale, durationBase).start();
@@ -346,7 +344,6 @@ export default class Animation {
           lipBottom: { x: 0.0017224233597517014, y: -0.11786344647407532, z: 0.18164539337158203 },
         },
       }
-      console.log(eri.nose.position);
     }
   }
 }
