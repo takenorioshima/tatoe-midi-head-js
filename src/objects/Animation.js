@@ -19,10 +19,11 @@ export default class Animation {
 
     WebMidi.enable().then(onMidiEnabled).catch(err => alert(err));
 
-    let midiInput;
-    const pisoundMidiInputName = 'pisound MIDI PS-2ZF0Y18';
-
     function onMidiEnabled() {
+
+      let midiInput;
+      const pisoundMidiInputName = 'pisound MIDI PS-2ZF0Y18';
+
       if (WebMidi.inputs.length < 1) {
         console.log('No device detected.');
       } else {
@@ -32,8 +33,23 @@ export default class Animation {
           midiInput = WebMidi.getInputByName(WebMidi.inputs[0].name);
         }
         console.log(`[tatoe] ${midiInput.name} was detected.`);
+        const animationFunctions = [
+          reset,
+          changeBackgroundColor,
+          changeCameraPosition,
+          dissolve,
+          extendGlasses,
+          rotate,
+          rotateHat,
+          rotateLips,
+          scale,
+          shrinkHeads,
+          switchWireframes,
+          toggleRotation,
+        ];
         midiInput.addListener("noteon", e => {
-          console.log(e.note.identifier);
+          const animationId = e.note.number % animationFunctions.length;
+          animationFunctions[animationId].call();
         })
       }
     }
