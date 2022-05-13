@@ -20,12 +20,19 @@ export default class Animation {
 
     WebMidi.enable().then(onMidiEnabled).catch(err => alert(err));
 
+    let midiInput;
+    const pisoundMidiInputName = 'pisound MIDI PS-2ZF0Y18';
+
     function onMidiEnabled() {
       if (WebMidi.inputs.length < 1) {
         console.log('No device detected.');
       } else {
-        console.log(`${WebMidi.inputs[0].name} was detected.`);
-        const midiInput = WebMidi.getInputByName(WebMidi.inputs[0].name);
+        if (WebMidi.getInputByName(pisoundMidiInputName)) {
+          midiInput = WebMidi.getInputByName(pisoundMidiInputName);
+        } else {
+          midiInput = WebMidi.getInputByName(WebMidi.inputs[0].name);
+        }
+        console.log(`[tatoe] ${midiInput.name} was detected.`);
         midiInput.addListener("noteon", e => {
           console.log(e.note.identifier);
         })
