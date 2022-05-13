@@ -9,8 +9,7 @@ export default class Animation {
     const initialScale = { x: 1, y: 1, z: 1 };
     const origin = { x: 0, y: 0, z: 0 };
     const durationBase = 100;
-    let isWireframed = false;
-    let isDessolved = false;
+
     const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
     let backgroundColorsIndex = 0;
 
@@ -59,18 +58,16 @@ export default class Animation {
           changeCameraPosition();
         }
         if (targetKey(e, 'KeyD')) {
-          isDessolved = !isDessolved;
-          dissolve(isDessolved);
+          dissolve();
         }
         if (targetKey(e, 'KeyL')) {
-          rotateLips(true);
+          rotateLips();
         }
         if (targetKey(e, 'KeyS')) {
           shrinkHeads();
         }
         if (targetKey(e, 'KeyW')) {
-          isWireframed = !isWireframed;
-          switchWireframes(isWireframed);
+          switchWireframes();
         }
         if (targetKey(e, 'Digit4')) {
           toggleRotation()
@@ -79,13 +76,13 @@ export default class Animation {
           rotate();
         }
         if (targetKey(e, 'Digit7')) {
-          scale(true);
+          scale();
         }
         if (targetKey(e, 'Digit8')) {
-          extendGlasses(true);
+          extendGlasses();
         }
         if (targetKey(e, 'Digit9')) {
-          rotateHat(true);
+          rotateHat();
         }
         if (targetKey(e, 'Digit0')) {
           reset();
@@ -96,19 +93,20 @@ export default class Animation {
     document.addEventListener('keyup', e => {
       if (window.take && window.eri) {
         if (targetKey(e, 'KeyL')) {
-          rotateLips(false);
+          rotateLips();
         }
         if (targetKey(e, 'Digit6')) {
           rotate();
         }
         if (targetKey(e, 'Digit7')) {
-          scale(false);
+          take.isScaled = true;
+          scale();
         }
         if (targetKey(e, 'Digit8')) {
-          extendGlasses(false);
+          extendGlasses();
         }
         if (targetKey(e, 'Digit9')) {
-          rotateHat(false);
+          rotateHat();
         }
       }
     }, false);
@@ -135,8 +133,8 @@ export default class Animation {
       camera.position.set(x, y, z);
     }
 
-    function dissolve(state) {
-      if (state) {
+    function dissolve() {
+      if (!take.isDissolved) {
         new TWEEN.Tween(take.glassL.position).to({ x: 0.5, y: 0.2, z: -0.5 }, durationBase).start();
         new TWEEN.Tween(take.glassL.rotation).to({ x: 1 }, durationBase).start();
         new TWEEN.Tween(take.glassL.scale).to({ x: 3, y: 3, z: 0.3 }, durationBase).start();
@@ -195,6 +193,8 @@ export default class Animation {
         new TWEEN.Tween(eri.strow.position).to({ y: 0.5 }, durationBase).start();
         new TWEEN.Tween(eri.strow.scale).to({ x: 4, y: 4, z: 4 }, durationBase).start();
 
+        take.isDissolved = true;
+
       } else {
 
         const objectsToReset = [
@@ -227,16 +227,19 @@ export default class Animation {
         new TWEEN.Tween(take.lipTop.position).to(window.initialPositions.take.lipTop, durationBase).start();
         new TWEEN.Tween(take.lipBottom.position).to(window.initialPositions.take.lipBottom, durationBase).start();
 
+        take.isDissolved = false;
       }
     }
 
-    function extendGlasses(state) {
-      if (state) {
+    function extendGlasses() {
+      if (!take.glassL.isExtended) {
         new TWEEN.Tween(take.glassL.scale).to({ z: 8 }, durationBase).start();
         new TWEEN.Tween(take.glassR.scale).to({ z: 10 }, durationBase).start();
+        take.glassL.isExtended = true;
       } else {
         new TWEEN.Tween(take.glassL.scale).to(initialScale, durationBase).start();
         new TWEEN.Tween(take.glassR.scale).to(initialScale, durationBase).start();
+        take.glassL.isExtended = false;
       }
     }
 
@@ -248,38 +251,44 @@ export default class Animation {
       new TWEEN.Tween(eri.rotation).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
     }
 
-    function rotateHat(state) {
-      if (state) {
+    function rotateHat() {
+      if (!eri.hat.isRotated) {
         new TWEEN.Tween(eri.hat.rotation).to({ y: 90 }, durationBase).start();
         new TWEEN.Tween(eri.hat.scale).to({ x: 1.5, y: 1.3, z: 1.5 }, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to({ y: 0.25 }, durationBase).start();
+        eri.hat.isRotated = true;
       } else {
         new TWEEN.Tween(eri.hat.rotation).to(origin, durationBase).start();
         new TWEEN.Tween(eri.hat.scale).to(initialScale, durationBase).start();
         new TWEEN.Tween(eri.hat.position).to(origin, durationBase).start();
+        eri.hat.isRotated = false;
       }
     }
 
-    function rotateLips(state) {
-      if (state) {
+    function rotateLips() {
+      if (!take.lipTop.isRotated) {
         new TWEEN.Tween(take.lipTop.rotation).to({ y: 3 }, durationBase * 2).start();
         new TWEEN.Tween(take.lipBottom.rotation).to({ y: -3 }, durationBase * 2).start();
+        take.lipTop.isRotated = true;
       } else {
         new TWEEN.Tween(take.lipTop.rotation).to(origin, durationBase * 2).start();
         new TWEEN.Tween(take.lipBottom.rotation).to(origin, durationBase * 2).start();
+        take.lipTop.isRotated = false;
       }
     }
 
-    function scale(state) {
-      if (state) {
+    function scale() {
+      if (!take.isScaled) {
         const randomA = Math.random() * 2;
         const randomB = Math.random() * 2;
         const randomC = Math.random() * 2;
         new TWEEN.Tween(take.scale).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
         new TWEEN.Tween(eri.scale).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
+        take.isScaled = true;
       } else {
         new TWEEN.Tween(take.scale).to(initialScale, durationBase).start();
         new TWEEN.Tween(eri.scale).to(initialScale, durationBase).start();
+        take.isScaled = false;
       }
     }
 
@@ -297,15 +306,16 @@ export default class Animation {
       }
     }
 
-    function switchWireframes(state) {
+    function switchWireframes() {
+      take.isWired = !take.isWired;
       take.traverse((child) => {
         if (child.material) {
-          child.material.wireframe = state;
+          child.material.wireframe = take.isWired;
         }
       });
       eri.traverse((child) => {
         if (child.material) {
-          child.material.wireframe = state;
+          child.material.wireframe = take.isWired;
         }
       });
     }
@@ -334,15 +344,13 @@ export default class Animation {
           child.material.wireframe = false;
         }
       });
-      isWireframed = false;
+      take.isWired = false;
 
-      new TWEEN.Tween(take.head.scale).to(initialScale, durationBase).start();
-      new TWEEN.Tween(eri.head.scale).to(initialScale, durationBase).start();
-      take.head.isShrinked = false;
-      eri.head.isShrinked = false;
+      take.isScaled = true;
+      scale();
 
-      dissolve(false);
-      isDessolved = false;
+      take.isDissolved = true;
+      dissolve();
     }
 
   }
