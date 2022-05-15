@@ -340,6 +340,9 @@ export default class Animation {
     }
 
     function changeMaterial() {
+      if (take.isWired) {
+        switchWireframes();
+      }
       if (!take.isNormalMaterial) {
         take.traverse((child) => {
           if (child.material) {
