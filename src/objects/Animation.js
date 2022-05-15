@@ -343,27 +343,21 @@ export default class Animation {
       if (!take.isNormalMaterial) {
         take.traverse((child) => {
           if (child.material) {
-            if (!child.originalMaterial) {
-              child.originalMaterial = child.material.clone();
-            }
             child.material = new THREE.MeshNormalMaterial();
           }
         });
         eri.traverse((child) => {
           if (child.material) {
-            if (!child.originalMaterial) {
-              child.originalMaterial = child.material.clone();
-            }
             child.material = new THREE.MeshNormalMaterial();
           }
         });
         take.isNormalMaterial = true;
       } else {
         take.traverse((child) => {
-          child.material = child.originalMaterial;
+          child.material = child.initialMaterial;
         });
         eri.traverse((child) => {
-          child.material = child.originalMaterial;
+          child.material = child.initialMaterial;
         });
         take.isNormalMaterial = false;
       }
@@ -383,10 +377,8 @@ export default class Animation {
 
       camera.position.set(0, 0, 10);
 
-      if (take.isNormalMaterial != null) {
-        take.isNormalMaterial = true;
-        changeMaterial();
-      }
+      take.isNormalMaterial = true;
+      changeMaterial();
 
       take.traverse((child) => {
         if (child.material) {
@@ -413,10 +405,22 @@ export default class Animation {
     if (!window.take || !window.eri) {
       window.take = scene.getObjectByName('take');
       window.eri = scene.getObjectByName('eri');
+
       take.glassL.initialPosition = take.glassL.position.clone();
       take.glassR.initialPosition = take.glassR.position.clone();
       take.lipTop.initialPosition = take.lipTop.position.clone();
       take.lipBottom.initialPosition = take.lipBottom.position.clone();
+
+      take.traverse((child) => {
+        if (child.material) {
+          child.initialMaterial = child.material.clone();
+        }
+      });
+      eri.traverse((child) => {
+        if (child.material) {
+          child.initialMaterial = child.material.clone();
+        }
+      });
     }
   }
 }
