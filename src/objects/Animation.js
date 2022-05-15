@@ -85,6 +85,9 @@ export default class Animation {
         if (targetKey(e, 'KeyW')) {
           switchWireframes();
         }
+        if (targetKey(e, 'KeyM')) {
+          changeMaterial();
+        }
         if (targetKey(e, 'Digit4')) {
           toggleRotation()
         }
@@ -337,6 +340,36 @@ export default class Animation {
       });
     }
 
+    function changeMaterial() {
+      if (!take.isNormalMaterial) {
+        take.traverse((child) => {
+          if (child.material) {
+            if (!child.originalMaterial) {
+              child.originalMaterial = child.material.clone();
+            }
+            child.material = new THREE.MeshNormalMaterial();
+          }
+        });
+        eri.traverse((child) => {
+          if (child.material) {
+            if (!child.originalMaterial) {
+              child.originalMaterial = child.material.clone();
+            }
+            child.material = new THREE.MeshNormalMaterial();
+          }
+        });
+        take.isNormalMaterial = true;
+      } else {
+        take.traverse((child) => {
+          child.material = child.originalMaterial;
+        });
+        eri.traverse((child) => {
+          child.material = child.originalMaterial;
+        });
+        take.isNormalMaterial = false;
+      }
+    }
+
     function toggleRotation() {
       scene.toggleRotation();
     }
@@ -350,6 +383,11 @@ export default class Animation {
       eri.setRotationFromEuler(initialEuler);
 
       camera.position.set(0, 0, 10);
+
+      if (take.isNormalMaterial != null) {
+        take.isNormalMaterial = true;
+        changeMaterial();
+      }
 
       take.traverse((child) => {
         if (child.material) {
