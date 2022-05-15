@@ -89,10 +89,10 @@ export default class Animation {
           toggleRotation()
         }
         if (targetKey(e, 'Digit6')) {
-          rotate();
+          rotateTatoe();
         }
         if (targetKey(e, 'Digit7')) {
-          scale();
+          scaleTatoe();
         }
         if (targetKey(e, 'Digit8')) {
           extendGlasses();
@@ -112,11 +112,11 @@ export default class Animation {
           rotateLips();
         }
         if (targetKey(e, 'Digit6')) {
-          rotate();
+          rotateTatoe();
         }
         if (targetKey(e, 'Digit7')) {
           take.isScaled = true;
-          scale();
+          scaleTatoe();
         }
         if (targetKey(e, 'Digit8')) {
           extendGlasses();
@@ -150,64 +150,65 @@ export default class Animation {
     }
 
     function dissolve() {
+      const easing = TWEEN.Easing.Quintic.Out;
       if (!take.isDissolved) {
-        new TWEEN.Tween(take.glassL.position).to({ x: 0.5, y: 0.2, z: -0.5 }, durationBase).start();
-        new TWEEN.Tween(take.glassL.rotation).to({ x: 1 }, durationBase).start();
-        new TWEEN.Tween(take.glassL.scale).to({ x: 3, y: 3, z: 0.3 }, durationBase).start();
+        new TWEEN.Tween(take.glassL.position).to({ x: 0.5, y: 0.2, z: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassL.rotation).to({ x: 1 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassL.scale).to({ x: 3, y: 3, z: 0.3 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.glassR.position).to({ x: -0.2, z: 0.3 }, durationBase).start();
-        new TWEEN.Tween(take.glassR.rotation).to({ y: -1, z: -0.5 }, durationBase).start();
-        new TWEEN.Tween(take.glassR.scale).to({ x: 4, y: 4, z: 0.3 }, durationBase).start();
+        new TWEEN.Tween(take.glassR.position).to({ x: -0.2, z: 0.3 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassR.rotation).to({ y: -1, z: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassR.scale).to({ x: 4, y: 4, z: 0.3 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.glassFrame.position).to({ x: 1, z: 0.4 }, durationBase).start();
-        new TWEEN.Tween(take.glassFrame.rotation).to({ z: -0.5 }, durationBase).start();
-        new TWEEN.Tween(take.glassFrame.scale).to({ x: 5 }, durationBase).start();
+        new TWEEN.Tween(take.glassFrame.position).to({ x: 1, z: 0.4 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassFrame.rotation).to({ z: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.glassFrame.scale).to({ x: 5 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.cap.position).to({ x: 1, y: 0.3 }, durationBase).start();
-        new TWEEN.Tween(take.cap.rotation).to({ y: 0.5, z: 0.5 }, durationBase).start();
-        new TWEEN.Tween(take.cap.scale).to({ x: 1.5, y: 1.5, z: 1.5 }, durationBase).start();
+        new TWEEN.Tween(take.cap.position).to({ x: 1, y: 0.3 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.cap.rotation).to({ y: 0.5, z: 0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.cap.scale).to({ x: 1.5, y: 1.5, z: 1.5 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.head.rotation).to({ x: 0.5, z: 2 }, durationBase).start();
-        new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 0.03 }, durationBase).start();
+        new TWEEN.Tween(take.head.rotation).to({ x: 0.5, z: 2 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 0.03 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.nose.position).to({ z: -1 }, durationBase).start();
-        new TWEEN.Tween(take.nose.rotation).to({ z: 5 }, durationBase).start();
-        new TWEEN.Tween(take.nose.scale).to({ x: 2, y: 2, z: 2 }, durationBase).start();
+        new TWEEN.Tween(take.nose.position).to({ z: -1 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.nose.rotation).to({ z: 5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.nose.scale).to({ x: 2, y: 2, z: 2 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.lipTop.position).to({ y: -0.5 }, durationBase).start();
-        new TWEEN.Tween(take.lipTop.scale).to({ x: 3, y: 3, z: 3 }, durationBase).start();
+        new TWEEN.Tween(take.lipTop.position).to({ y: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.lipTop.scale).to({ x: 3, y: 3, z: 3 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(take.lipBottom.position).to({ x: 1, y: 0.25 }, durationBase).start();
-        new TWEEN.Tween(take.lipBottom.rotation).to({ z: 1 }, durationBase).start();
-        new TWEEN.Tween(take.lipBottom.scale).to({ x: 2, y: 2, z: 2 }, durationBase).start();
+        new TWEEN.Tween(take.lipBottom.position).to({ x: 1, y: 0.25 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.lipBottom.rotation).to({ z: 1 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(take.lipBottom.scale).to({ x: 2, y: 2, z: 2 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.hat.position).to({ x: -1, y: 0.75, z: -0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.hat.rotation).to({ z: 3 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.position).to({ x: -1, y: 0.75, z: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.hat.rotation).to({ z: 3 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.hair.position).to({ y: -0.4 }, durationBase).start();
-        new TWEEN.Tween(eri.hair.rotation).to({ x: 0.2, y: 0.1, z: -0.2 }, durationBase).start();
-        new TWEEN.Tween(eri.hair.scale).to({ x: 2, y: 0.1, z: 2 }, durationBase).start();
+        new TWEEN.Tween(eri.hair.position).to({ y: -0.4 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.hair.rotation).to({ x: 0.2, y: 0.1, z: -0.2 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.hair.scale).to({ x: 2, y: 0.1, z: 2 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.head.rotation).to({ x: -0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 0.03 }, durationBase).start();
+        new TWEEN.Tween(eri.head.rotation).to({ x: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.head.scale).to({ x: 1, y: 1, z: 0.03 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.eyes.rotation).to({ x: 2, y: 2, z: 2 }, durationBase).start();
-        new TWEEN.Tween(eri.eyes.scale).to({ x: 2, y: 2, z: 2 }, durationBase).start();
+        new TWEEN.Tween(eri.eyes.rotation).to({ x: 2, y: 2, z: 2 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.eyes.scale).to({ x: 2, y: 2, z: 2 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.nose.position).to({ y: -2 }, durationBase).start();
-        new TWEEN.Tween(eri.nose.rotation).to({ x: -1.5 }, durationBase).start();
-        new TWEEN.Tween(eri.nose.scale).to({ x: 10, y: 10, z: 10 }, durationBase).start();
+        new TWEEN.Tween(eri.nose.position).to({ y: -2 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.nose.rotation).to({ x: -1.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.nose.scale).to({ x: 10, y: 10, z: 10 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.earL.position).to({ x: -0.5, z: -1 }, durationBase).start();
-        new TWEEN.Tween(eri.earL.rotation).to({ y: -0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.earL.scale).to({ x: 4, y: 4 }, durationBase).start();
+        new TWEEN.Tween(eri.earL.position).to({ x: -0.5, z: -1 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.earL.rotation).to({ y: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.earL.scale).to({ x: 4, y: 4 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.earR.position).to({ x: -0.5, z: -0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.earR.rotation).to({ y: 0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.earR.scale).to({ x: 2, y: 2 }, durationBase).start();
+        new TWEEN.Tween(eri.earR.position).to({ x: -0.5, z: -0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.earR.rotation).to({ y: 0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.earR.scale).to({ x: 2, y: 2 }, durationBase).easing(easing).start();
 
-        new TWEEN.Tween(eri.strow.position).to({ y: 0.5 }, durationBase).start();
-        new TWEEN.Tween(eri.strow.scale).to({ x: 4, y: 4, z: 4 }, durationBase).start();
+        new TWEEN.Tween(eri.strow.position).to({ y: 0.5 }, durationBase).easing(easing).start();
+        new TWEEN.Tween(eri.strow.scale).to({ x: 4, y: 4, z: 4 }, durationBase).easing(easing).start();
 
         take.isDissolved = true;
 
@@ -259,19 +260,11 @@ export default class Animation {
       }
     }
 
-    function rotate() {
-      const randomA = Math.random() * 3;
-      const randomB = Math.random() * 3;
-      const randomC = Math.random() * 3;
-      new TWEEN.Tween(take.rotation).to({ x: randomA, y: randomB, z: randomC }, durationBase).start();
-      new TWEEN.Tween(eri.rotation).to({ x: randomC, y: randomA, z: randomB }, durationBase).start();
-    }
-
     function rotateHat() {
       if (!eri.hat.isRotated) {
-        new TWEEN.Tween(eri.hat.rotation).to({ y: 90 }, durationBase).start();
-        new TWEEN.Tween(eri.hat.scale).to({ x: 1.5, y: 1.3, z: 1.5 }, durationBase).start();
-        new TWEEN.Tween(eri.hat.position).to({ y: 0.25 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.rotation).to({ y: 6 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.scale).to({ x: 1.75, y: 1.5, z: 1.75 }, durationBase).start();
+        new TWEEN.Tween(eri.hat.position).to({ y: 0.2 }, durationBase).start();
         eri.hat.isRotated = true;
       } else {
         new TWEEN.Tween(eri.hat.rotation).to(origin, durationBase).start();
@@ -293,7 +286,15 @@ export default class Animation {
       }
     }
 
-    function scale() {
+    function rotateTatoe() {
+      const randomA = (Math.random() * 6) - 3;
+      const randomB = (Math.random() * 6) - 3;
+      const randomC = (Math.random() * 6) - 3;
+      new TWEEN.Tween(take.rotation).to({ x: randomA, y: randomB, z: randomC }, durationBase * 20).easing(TWEEN.Easing.Quintic.Out).start();
+      new TWEEN.Tween(eri.rotation).to({ x: randomB, y: randomC, z: randomA }, durationBase * 10).easing(TWEEN.Easing.Quintic.Out).start();
+    }
+
+    function scaleTatoe() {
       if (!take.isScaled) {
         const randomA = Math.random() * 2;
         const randomB = Math.random() * 2;
@@ -363,7 +364,7 @@ export default class Animation {
       take.isWired = false;
 
       take.isScaled = true;
-      scale();
+      scaleTatoe();
 
       take.isDissolved = true;
       dissolve();
