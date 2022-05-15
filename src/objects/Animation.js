@@ -237,15 +237,14 @@ export default class Animation {
         ];
 
         objectsToReset.forEach(target => {
-          new TWEEN.Tween(target.position).to(origin, durationBase).start();
+          if (target.initialPosition) {
+            new TWEEN.Tween(target.position).to(target.initialPosition, durationBase).start();
+          } else {
+            new TWEEN.Tween(target.position).to(origin, durationBase).start();
+          }
           new TWEEN.Tween(target.rotation).to(origin, durationBase).start();
           new TWEEN.Tween(target.scale).to(initialScale, durationBase).start();
         });
-
-        new TWEEN.Tween(take.glassL.position).to(window.initialPositions.take.glassL, durationBase).start();
-        new TWEEN.Tween(take.glassR.position).to(window.initialPositions.take.glassR, durationBase).start();
-        new TWEEN.Tween(take.lipTop.position).to(window.initialPositions.take.lipTop, durationBase).start();
-        new TWEEN.Tween(take.lipBottom.position).to(window.initialPositions.take.lipBottom, durationBase).start();
 
         take.isDissolved = false;
       }
@@ -414,14 +413,10 @@ export default class Animation {
     if (!window.take || !window.eri) {
       window.take = scene.getObjectByName('take');
       window.eri = scene.getObjectByName('eri');
-      window.initialPositions = {
-        take: {
-          glassL: { x: 0.07000001519918442, y: 0.047531530261039734, z: 0.19383010268211365 },
-          glassR: { x: -0.07000000774860382, y: 0.045752037316560745, z: 0.19389592111110687 },
-          lipTop: { x: 0.0017224252223968506, y: -0.0844118595123291, z: 0.18164539337158203 },
-          lipBottom: { x: 0.0017224233597517014, y: -0.11786344647407532, z: 0.18164539337158203 },
-        },
-      }
+      take.glassL.initialPosition = take.glassL.position.clone();
+      take.glassR.initialPosition = take.glassR.position.clone();
+      take.lipTop.initialPosition = take.lipTop.position.clone();
+      take.lipBottom.initialPosition = take.lipBottom.position.clone();
     }
   }
 }
