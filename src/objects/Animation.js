@@ -76,6 +76,9 @@ export default class Animation {
         if (targetKey(e, 'KeyD')) {
           dissolve();
         }
+        if (targetKey(e, 'KeyE')) {
+          swapEyes();
+        }
         if (targetKey(e, 'KeyL')) {
           rotateLips();
         }
@@ -325,6 +328,86 @@ export default class Animation {
       }
     }
 
+    function swapEyes() {
+      if (!eri.eyes.isSwapped) {
+        const eriTweens = [
+          new TWEEN.Tween(eri.eyes.position).to({ z: 0.3 }, durationBase),
+          new TWEEN.Tween(eri.eyes.position).to({ x: -0.385 * 2, y: 0.05 }, durationBase),
+          new TWEEN.Tween(eri.eyes.position).to({ z: 0.02 }, durationBase),
+        ];
+        eriTweens[0].chain(eriTweens[1]);
+        eriTweens[1].chain(eriTweens[2]);
+        eriTweens[0].start();
+
+        const takeGlassLTweens = [
+          new TWEEN.Tween(take.glassL.position).to({ z: 0.7 }, durationBase),
+          new TWEEN.Tween(take.glassL.position).to({ x: 0.843, y: 0 }, durationBase),
+          new TWEEN.Tween(take.glassL.position).to({ z: 0.19 }, durationBase),
+        ];
+        takeGlassLTweens[0].chain(takeGlassLTweens[1]);
+        takeGlassLTweens[1].chain(takeGlassLTweens[2]);
+        takeGlassLTweens[0].start();
+
+        const takeGlassRTweens = [
+          new TWEEN.Tween(take.glassR.position).to({ z: 0.7 }, durationBase),
+          new TWEEN.Tween(take.glassR.position).to({ x: 0.7, y: 0 }, durationBase),
+          new TWEEN.Tween(take.glassR.position).to({ z: 0.19 }, durationBase),
+        ];
+        takeGlassRTweens[0].chain(takeGlassRTweens[1]);
+        takeGlassRTweens[1].chain(takeGlassRTweens[2]);
+        takeGlassRTweens[0].start();
+
+        const takeGlassFrameTweens = [
+          new TWEEN.Tween(take.glassFrame.position).to({ z: 0.5 }, durationBase),
+          new TWEEN.Tween(take.glassFrame.position).to({ x: 0.771, y: -0.05 }, durationBase),
+          new TWEEN.Tween(take.glassFrame.position).to({ z: -0.01 }, durationBase),
+        ];
+        takeGlassFrameTweens[0].chain(takeGlassFrameTweens[1]);
+        takeGlassFrameTweens[1].chain(takeGlassFrameTweens[2]);
+        takeGlassFrameTweens[0].start();
+
+        eri.eyes.isSwapped = true;
+      } else {
+        const eriBackTweens = [
+          new TWEEN.Tween(eri.eyes.position).to({ z: 0.3 }, durationBase),
+          new TWEEN.Tween(eri.eyes.position).to({ x: 0, y: 0 }, durationBase),
+          new TWEEN.Tween(eri.eyes.position).to({ z: 0 }, durationBase),
+        ];
+        eriBackTweens[0].chain(eriBackTweens[1]);
+        eriBackTweens[1].chain(eriBackTweens[2]);
+        eriBackTweens[0].start();
+
+        const takeBackGlassLTweens = [
+          new TWEEN.Tween(take.glassL.position).to({ z: 0.7 }, durationBase),
+          new TWEEN.Tween(take.glassL.position).to({ x: take.glassL.initialPosition.x, y: take.glassL.initialPosition.y }, durationBase),
+          new TWEEN.Tween(take.glassL.position).to({ z: take.glassL.initialPosition.z }, durationBase),
+        ];
+        takeBackGlassLTweens[0].chain(takeBackGlassLTweens[1]);
+        takeBackGlassLTweens[1].chain(takeBackGlassLTweens[2]);
+        takeBackGlassLTweens[0].start();
+
+        const takeBackGlassRTweens = [
+          new TWEEN.Tween(take.glassR.position).to({ z: 0.7 }, durationBase),
+          new TWEEN.Tween(take.glassR.position).to({ x: take.glassR.initialPosition.x, y: take.glassR.initialPosition.y }, durationBase),
+          new TWEEN.Tween(take.glassR.position).to({ z: take.glassR.initialPosition.z }, durationBase),
+        ];
+        takeBackGlassRTweens[0].chain(takeBackGlassRTweens[1]);
+        takeBackGlassRTweens[1].chain(takeBackGlassRTweens[2]);
+        takeBackGlassRTweens[0].start();
+
+        const takeBackGlassFrameTweens = [
+          new TWEEN.Tween(take.glassFrame.position).to({ z: 0.5 }, durationBase),
+          new TWEEN.Tween(take.glassFrame.position).to({ x: take.glassFrame.initialPosition.x, y: take.glassFrame.initialPosition.y }, durationBase),
+          new TWEEN.Tween(take.glassFrame.position).to({ z: take.glassFrame.initialPosition.z }, durationBase),
+        ];
+        takeBackGlassFrameTweens[0].chain(takeBackGlassFrameTweens[1]);
+        takeBackGlassFrameTweens[1].chain(takeBackGlassFrameTweens[2]);
+        takeBackGlassFrameTweens[0].start();
+
+        eri.eyes.isSwapped = false;
+      }
+    }
+
     function switchWireframes() {
       take.isWired = !take.isWired;
       take.traverse((child) => {
@@ -411,6 +494,7 @@ export default class Animation {
 
       take.glassL.initialPosition = take.glassL.position.clone();
       take.glassR.initialPosition = take.glassR.position.clone();
+      take.glassFrame.initialPosition = take.glassFrame.position.clone();
       take.lipTop.initialPosition = take.lipTop.position.clone();
       take.lipBottom.initialPosition = take.lipBottom.position.clone();
 
