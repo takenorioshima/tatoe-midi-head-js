@@ -10,6 +10,7 @@
 import { WebGLRenderer, Scene } from 'three';
 import TatoeScene from './objects/Scene';
 import Camera from './objects/Camera';
+import AnimationController from './objects/AnimationController';
 import Animation from './objects/Animation';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -20,7 +21,8 @@ const camera = new Camera();
 const renderer = new WebGLRenderer({ antialias: true });
 const tatoeScene = new TatoeScene();
 const controls = new OrbitControls(camera, renderer.domElement);
-const animation = new Animation(tatoeScene, camera, renderer);
+const animation = new Animation();
+new AnimationController(tatoeScene, camera, renderer);
 
 // Stats
 const stats = new Stats();
