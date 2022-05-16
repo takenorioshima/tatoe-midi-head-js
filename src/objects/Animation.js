@@ -31,10 +31,17 @@ export default class Animation {
     const radius = 10;
     const phi = (Math.random() * 360) * Math.PI / 180;
     const theta = (Math.random() * 180) * Math.PI / 180;
+    const zoomMin = Math.ceil(1);
+    const zoomMax = Math.floor(3);
+    const zoom = Math.floor(Math.random() * (zoomMax - zoomMin) + zoomMin) + 0.5;
+    console.log(zoom);
     const x = -1 * radius * Math.cos(phi) * Math.cos(theta);
     const y = radius * Math.sin(phi);
     const z = radius * Math.cos(phi) * Math.sin(theta);
     this.camera.position.set(x, y, z);
+    this.camera.zoom = zoom;
+    console.log(this.camera);
+    this.camera.updateProjectionMatrix();
   }
 
   dissolve() {
