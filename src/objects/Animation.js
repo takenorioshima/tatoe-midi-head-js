@@ -17,7 +17,7 @@ export default class Animation {
      * Listen MIDI events.
      */
 
-    WebMidi.enable().then(onMidiEnabled).catch(err => alert(err));
+    WebMidi.enable().then(onMidiEnabled).catch(err => console.log(err));
 
     function onMidiEnabled() {
 
@@ -39,12 +39,14 @@ export default class Animation {
           changeCameraPosition,
           dissolve,
           extendGlasses,
-          rotate,
           rotateHat,
           rotateLips,
-          scale,
+          rotateTatoe,
+          scaleTatoe,
           shrinkHeads,
+          swapEyes,
           switchWireframes,
+          changeMaterial,
           toggleRotation,
         ];
         midiInput.addListener("noteon", e => {
