@@ -124,6 +124,10 @@ export default class AnimationController {
         if (targetKey(e, 'KeyM')) {
           animation.changeMaterial();
         }
+        if (targetKey(e, 'KeyY')) {
+          animation.changeCap();
+          animation.changeHat();
+        }
         if (targetKey(e, 'Digit4')) {
           animation.toggleRotation()
         }
