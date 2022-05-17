@@ -37,6 +37,16 @@ export default class Animation {
     this.camera.position.set(x, y, z);
   }
 
+  changeCap() {
+    take.cap.visible = !take.cap.visible;
+    take.yellowCap.visible = !take.yellowCap.visible;
+  }
+
+  changeHat() {
+    eri.hat.visible = !eri.hat.visible;
+    eri.cheese.visible = !eri.cheese.visible;
+  }
+
   dissolve() {
     const easing = TWEEN.Easing.Quintic.Out;
     const durationBase = this.durationBase;
@@ -56,6 +66,9 @@ export default class Animation {
       new TWEEN.Tween(take.cap.position).to({ x: 1, y: 0.3 }, durationBase).easing(easing).start();
       new TWEEN.Tween(take.cap.rotation).to({ y: 0.5, z: 0.5 }, durationBase).easing(easing).start();
       new TWEEN.Tween(take.cap.scale).to({ x: 1.5, y: 1.5, z: 1.5 }, durationBase).easing(easing).start();
+      new TWEEN.Tween(take.yellowCap.position).to({ x: 1, y: 0.3 }, durationBase).easing(easing).start();
+      new TWEEN.Tween(take.yellowCap.rotation).to({ y: 0.5, z: 0.5 }, durationBase).easing(easing).start();
+      new TWEEN.Tween(take.yellowCap.scale).to({ x: 1.5, y: 1.5, z: 1.5 }, durationBase).easing(easing).start();
 
       new TWEEN.Tween(take.head.rotation).to({ x: 0.5, z: 2 }, durationBase).easing(easing).start();
       new TWEEN.Tween(take.head.scale).to({ x: 1, y: 1, z: 0.03 }, durationBase).easing(easing).start();
@@ -73,6 +86,8 @@ export default class Animation {
 
       new TWEEN.Tween(eri.hat.position).to({ x: -1, y: 0.75, z: -0.5 }, durationBase).easing(easing).start();
       new TWEEN.Tween(eri.hat.rotation).to({ z: 3 }, durationBase).easing(easing).start();
+      new TWEEN.Tween(eri.cheese.position).to({ x: -1, y: 0.75, z: -0.5 }, durationBase).easing(easing).start();
+      new TWEEN.Tween(eri.cheese.rotation).to({ z: 3 }, durationBase).easing(easing).start();
 
       new TWEEN.Tween(eri.hair.position).to({ y: -0.4 }, durationBase).easing(easing).start();
       new TWEEN.Tween(eri.hair.rotation).to({ x: 0.2, y: 0.1, z: -0.2 }, durationBase).easing(easing).start();
@@ -112,6 +127,7 @@ export default class Animation {
         take.glassFrame,
         take.head,
         take.nose,
+        take.yellowCap,
         eri.hat,
         eri.hair,
         eri.head,
@@ -120,6 +136,7 @@ export default class Animation {
         eri.earL,
         eri.earR,
         eri.strow,
+        eri.cheese,
       ];
 
       objectsToReset.forEach(target => {
@@ -154,11 +171,21 @@ export default class Animation {
       new TWEEN.Tween(eri.hat.rotation).to({ y: 6 }, this.durationBase).start();
       new TWEEN.Tween(eri.hat.scale).to({ x: 1.75, y: 1.5, z: 1.75 }, this.durationBase).start();
       new TWEEN.Tween(eri.hat.position).to({ y: 0.2 }, this.durationBase).start();
+
+      new TWEEN.Tween(eri.cheese.rotation).to({ y: 6 }, this.durationBase).start();
+      new TWEEN.Tween(eri.cheese.scale).to({ x: 1.75, y: 1.5, z: 1.75 }, this.durationBase).start();
+      new TWEEN.Tween(eri.cheese.position).to({ y: 0.2 }, this.durationBase).start();
+
       eri.hat.isRotated = true;
     } else {
       new TWEEN.Tween(eri.hat.rotation).to(this.origin, this.durationBase).start();
       new TWEEN.Tween(eri.hat.scale).to(this.initialScale, this.durationBase).start();
       new TWEEN.Tween(eri.hat.position).to(this.origin, this.durationBase).start();
+
+      new TWEEN.Tween(eri.cheese.rotation).to(this.origin, this.durationBase).start();
+      new TWEEN.Tween(eri.cheese.scale).to(this.initialScale, this.durationBase).start();
+      new TWEEN.Tween(eri.cheese.position).to(this.origin, this.durationBase).start();
+
       eri.hat.isRotated = false;
     }
   }
