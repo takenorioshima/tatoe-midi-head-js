@@ -6,7 +6,7 @@ import AnimationController from './objects/AnimationController';
 import TWEEN from '@tweenjs/tween.js';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.OrthographicCamera();
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.outputEncoding = THREE.sRGBEncoding;
@@ -24,8 +24,9 @@ document.body.appendChild(stats.dom);
 const tatoe = new Tatoe();
 scene.add(tatoe);
 
-camera.zoom = 3;
-camera.position.set(5, 2.5, 0);
+camera.zoom = 2;
+camera.position.set(10, 5, 0);
+camera.lookAt(0, 0, 0);
 
 const animationController = new AnimationController(tatoe, camera, renderer, window);
 
@@ -43,11 +44,13 @@ const tick = () => {
 tick();
 
 const windowResizeHanlder = () => {
+  const size = 3;
   const width = window.innerWidth;
   const height = window.innerHeight;
-  renderer.setPixelRatio(window.devicePixelRatio);
+  const aspectRatio = width / height;
   renderer.setSize(width, height);
-  camera.aspect = width / height;
+  camera.left = size * aspectRatio / -3;
+  camera.right = size * aspectRatio / 3;
   camera.updateProjectionMatrix();
 };
 windowResizeHanlder();

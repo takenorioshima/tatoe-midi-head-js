@@ -4,7 +4,7 @@ import TWEEN from '@tweenjs/tween.js';
 export default class Animation {
 
   tatoe: THREE.Group | any;
-  camera: THREE.PerspectiveCamera;
+  camera: THREE.OrthographicCamera;
   renderer: THREE.WebGLRenderer;
   initialEuler: THREE.Euler;
   initialScale: object;
@@ -12,7 +12,7 @@ export default class Animation {
   durationBase: number;
   backgroundColorsIndex: number;
 
-  constructor(tatoe: THREE.Group | any, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, renderer: THREE.WebGLRenderer) {
     this.tatoe = tatoe;
     this.camera = camera;
     this.renderer = renderer;
@@ -41,8 +41,8 @@ export default class Animation {
     const phi = (Math.random() * 360) * Math.PI / 180;
     const theta = (Math.random() * 180) * Math.PI / 180;
     const zoomMin = Math.ceil(1);
-    const zoomMax = Math.floor(5);
-    const zoom = Math.floor(Math.random() * (zoomMax - zoomMin) + zoomMin) + 2;
+    const zoomMax = Math.floor(4);
+    const zoom = Math.floor(Math.random() * (zoomMax - zoomMin) + zoomMin) + 0.5;
     const x = -1 * radius * Math.cos(phi) * Math.cos(theta);
     const y = radius * Math.sin(phi);
     const z = radius * Math.cos(phi) * Math.sin(theta);
@@ -411,8 +411,9 @@ export default class Animation {
     this.tatoe.take.setRotationFromEuler(this.initialEuler);
     this.tatoe.eri.setRotationFromEuler(this.initialEuler);
 
-    this.camera.zoom = 3;
-    this.camera.position.set(5, 2.5, 0);
+    this.camera.zoom = 2;
+    this.camera.position.set(10, 5, 0);
+    this.camera.updateProjectionMatrix();
 
     this.tatoe.userData.isNormalMaterial = true;
     this.changeMaterial();

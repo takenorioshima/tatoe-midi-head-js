@@ -2,7 +2,7 @@ import { WebMidi } from 'webmidi';
 import Animation from './Animation';
 
 export default class AnimationController extends Animation {
-  constructor(tatoe: THREE.Group | any, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer, window: Window) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, renderer: THREE.WebGLRenderer, window: Window) {
 
     super(tatoe, camera, renderer);
 
