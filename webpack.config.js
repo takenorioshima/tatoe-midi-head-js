@@ -1,33 +1,44 @@
 const path = require('path');
-const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const buildPath = './build/';
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/entry.js'],
-  output: {
-    path: path.join(__dirname, buildPath),
-    filename: '[name].[fullhash].js'
-  },
   mode: 'development',
-  target: 'web',
-  devtool: 'source-map',
+  entry: './src/entry.ts',
+  output: {
+    filename: '[name].[fullhash].js',
+    path: path.resolve(__dirname, 'dist')
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: path.resolve(__dirname, './node_modules/')
-      },{
-        test: /\.(jpe?g|png|gif|svg|tga|glb|babylon|mtl|pcb|pcd|prwm|obj|mat|mp3|ogg)$/i,
-        use: 'file-loader',
-        exclude: path.resolve(__dirname, './node_modules/')
+        test: /\.ts$/,
+        use: 'ts-loader'
       }
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'  
-    })
-  ]
-}
+      template: './src/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'src/models/*.glb',
+          to({ context, absoluteFilename }) {
+            return "models/[name][ext]";
+          }
+        }
+      ]
+    }),
+  ],
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  devServer: {
+    open: true,
+    static: {
+      directory: path.resolve(__dirname, 'dist')
+    }
+  }
+};
