@@ -4,15 +4,15 @@ import Animation from './Animation';
 
 export default class Take extends THREE.Group {
 
-  cap: any;
-  head: any;
-  nose: any;
-  lipTop: any;
-  lipBottom: any;
-  glassL: any;
-  glassR: any;
-  glassFrame: any;
-  yellowCap: any;
+  cap: THREE.Group | any;
+  head: THREE.Group | any;
+  nose: THREE.Group | any;
+  lipTop: THREE.Group | any;
+  lipBottom: THREE.Group | any;
+  glassL: THREE.Group | any;
+  glassR: THREE.Group | any;
+  glassFrame: THREE.Group | any;
+  yellowCap: THREE.Group | any;
 
   constructor(parent: THREE.Group) {
     super();

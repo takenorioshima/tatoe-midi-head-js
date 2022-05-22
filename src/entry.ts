@@ -29,7 +29,7 @@ camera.position.set(5, 2.5, 0);
 
 const animationController = new AnimationController(tatoe, camera, renderer, window);
 
-const tick = (): void => {
+const tick = () => {
   requestAnimationFrame(tick);
 
   tatoe.update();
@@ -42,7 +42,7 @@ const tick = (): void => {
 }
 tick();
 
-const windowResizeHanlder = (): void => {
+const windowResizeHanlder = () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
   renderer.setPixelRatio(window.devicePixelRatio);

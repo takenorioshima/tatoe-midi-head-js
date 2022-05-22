@@ -3,15 +3,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default class Eri extends THREE.Group {
 
-  hat: any;
-  hair: any;
-  head: any;
-  nose: any;
-  earL: any;
-  earR: any;
-  eyes: any;
-  strow: any;
-  cheese: any;
+  hat: THREE.Group | any;
+  hair: THREE.Group | any;
+  head: THREE.Group | any;
+  nose: THREE.Group | any;
+  earL: THREE.Group | any;
+  earR: THREE.Group | any;
+  eyes: THREE.Group | any;
+  strow: THREE.Group | any;
+  cheese: THREE.Group | any;
 
   constructor(parent: THREE.Group) {
     super();

@@ -3,7 +3,7 @@ import TWEEN from '@tweenjs/tween.js';
 
 export default class Animation {
 
-  tatoe: any;
+  tatoe: THREE.Group | any;
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
   initialEuler: THREE.Euler;
@@ -12,7 +12,7 @@ export default class Animation {
   durationBase: number;
   backgroundColorsIndex: number;
 
-  constructor(tatoe: any, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer) {
     this.tatoe = tatoe;
     this.camera = camera;
     this.renderer = renderer;

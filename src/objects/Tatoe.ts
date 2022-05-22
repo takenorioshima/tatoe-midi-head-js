@@ -4,8 +4,8 @@ import Eri from './Eri';
 
 export default class Tatoe extends THREE.Group {
 
-  take: any;
-  eri: any;
+  take: THREE.Group;
+  eri: THREE.Group;
   cube: any;
 
   constructor() {
