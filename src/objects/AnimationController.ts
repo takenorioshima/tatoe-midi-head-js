@@ -7,10 +7,10 @@ export default class AnimationController extends Animation {
     super(tatoe, camera, renderer);
 
     /**
-     * Listen MIDI events.
+     * Detect MIDI device.
      */
 
-    WebMidi.enable().then(() => {
+    const onMidiEnabled = () => {
 
       let midiInput;
       const pisoundMidiInputName = 'pisound MIDI PS-2ZF0Y18';
@@ -25,6 +25,10 @@ export default class AnimationController extends Animation {
           midiInput = WebMidi.getInputByName(WebMidi.inputs[0].name);
         }
         console.log(`[tatoe] ${midiInput.name} was detected.`);
+
+        /**
+         * Listen MIDI events.
+         */
 
         midiInput.addListener('noteon', e => {
           const noteGroup = e.note.number % 16;
@@ -86,7 +90,8 @@ export default class AnimationController extends Animation {
           }
         });
       }
-    }).catch(err => console.log(err));
+    }
+    WebMidi.enable().then(onMidiEnabled).catch(err => console.log(err));
 
     /**
      * Listen keyboard events.
