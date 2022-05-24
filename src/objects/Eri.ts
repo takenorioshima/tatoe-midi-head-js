@@ -3,15 +3,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default class Eri extends THREE.Group {
 
-  hat: THREE.Group | any;
-  hair: THREE.Group | any;
-  head: THREE.Group | any;
-  nose: THREE.Group | any;
-  earL: THREE.Group | any;
-  earR: THREE.Group | any;
-  eyes: THREE.Group | any;
-  strow: THREE.Group | any;
-  cheese: THREE.Group | any;
+  hat: THREE.Object3D | undefined;
+  hair: THREE.Object3D | undefined;
+  head: THREE.Object3D | undefined;
+  nose: THREE.Object3D | undefined;
+  earL: THREE.Object3D | undefined;
+  earR: THREE.Object3D | undefined;
+  eyes: THREE.Object3D | undefined;
+  strow: THREE.Object3D | undefined;
+  cheese: THREE.Object3D | undefined;
 
   constructor(parent: THREE.Group) {
     super();
@@ -32,7 +32,7 @@ export default class Eri extends THREE.Group {
       this.strow = this.getObjectByName('strow');
       this.eyes = this.getObjectByName('eyes');
       this.cheese = this.getObjectByName('cheese');
-      this.cheese.visible = false;
+      (this.cheese as THREE.Object3D).visible = false;
 
       this.traverse((child: THREE.Object3D) => {
         if (child instanceof THREE.Mesh) {

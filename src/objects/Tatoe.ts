@@ -8,7 +8,7 @@ export default class Tatoe extends THREE.Group {
   take: THREE.Group;
   eri: THREE.Group;
   shape: THREE.Group;
-  cube: any;
+  cube: THREE.Mesh;
 
   constructor() {
     super();
@@ -31,7 +31,7 @@ export default class Tatoe extends THREE.Group {
     const geometry = new THREE.BoxGeometry(2, 2, 2);
     const material = new THREE.MeshBasicMaterial();
     this.cube = new THREE.Mesh(geometry, material);
-    this.cube.material.wireframe = true;
+    (this.cube.material as THREE.MeshBasicMaterial).wireframe = true;
 
     this.add(this.cube, directionLight, ambientLight, lightHelper);
   }

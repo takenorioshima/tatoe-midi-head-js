@@ -3,15 +3,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default class Take extends THREE.Group {
 
-  cap: THREE.Group | any;
-  head: THREE.Group | any;
-  nose: THREE.Group | any;
-  lipTop: THREE.Group | any;
-  lipBottom: THREE.Group | any;
-  glassL: THREE.Group | any;
-  glassR: THREE.Group | any;
-  glassFrame: THREE.Group | any;
-  yellowCap: THREE.Group | any;
+  cap: THREE.Object3D | undefined;
+  head: THREE.Object3D | undefined;
+  nose: THREE.Object3D | undefined;
+  lipTop: THREE.Object3D | undefined;
+  lipBottom: THREE.Object3D | undefined;
+  glassL: THREE.Object3D | undefined;
+  glassR: THREE.Object3D | undefined;
+  glassFrame: THREE.Object3D | undefined;
+  yellowCap: THREE.Object3D | undefined;
 
   constructor(parent: THREE.Group) {
     super();
@@ -32,13 +32,13 @@ export default class Take extends THREE.Group {
       this.glassR = this.getObjectByName('glassR');
       this.glassFrame = this.getObjectByName('glassFrame');
       this.yellowCap = this.getObjectByName('yellowCap');
-      this.yellowCap.visible = false;
+      (this.yellowCap as THREE.Object3D).visible = false;
 
-      this.glassL.userData.initialPosition = this.glassL.position.clone();
-      this.glassR.userData.initialPosition = this.glassR.position.clone();
-      this.glassFrame.userData.initialPosition = this.glassFrame.position.clone();
-      this.lipTop.userData.initialPosition = this.lipTop.position.clone();
-      this.lipBottom.userData.initialPosition = this.lipBottom.position.clone();
+      (this.glassL as THREE.Object3D).userData.initialPosition = (this.glassL as THREE.Object3D).position.clone();
+      (this.glassR as THREE.Object3D).userData.initialPosition = (this.glassR as THREE.Object3D).position.clone();
+      (this.glassFrame as THREE.Object3D).userData.initialPosition = (this.glassFrame as THREE.Object3D).position.clone();
+      (this.lipTop as THREE.Object3D).userData.initialPosition = (this.lipTop as THREE.Object3D).position.clone();
+      (this.lipBottom as THREE.Object3D).userData.initialPosition = (this.lipBottom as THREE.Object3D).position.clone();
 
       this.traverse((child: THREE.Object3D) => {
         if (child instanceof THREE.Mesh) {
