@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import TWEEN from '@tweenjs/tween.js';
+import * as TWEEN from '@tweenjs/tween.js';
 
 export default class Animation {
 
@@ -7,7 +7,7 @@ export default class Animation {
   camera: THREE.OrthographicCamera;
   renderer: THREE.WebGLRenderer;
   initialEuler: THREE.Euler;
-  initialScale: object;
+  initialScale: { [axis: string]: number };
   origin: THREE.Vector3;
   durationBase: number;
   backgroundColorsIndex: number;
@@ -66,22 +66,18 @@ export default class Animation {
       this.switchWireframes();
     }
     if (!this.tatoe.userData.isNormalMaterial) {
-      this.tatoe.take.traverse((child: any) => {
-        if (child.material) {
-          child.material = new THREE.MeshNormalMaterial();
-        }
+      this.tatoe.take.traverse((child: THREE.Mesh) => {
+        child.material = new THREE.MeshNormalMaterial();
       });
-      this.tatoe.eri.traverse((child: any) => {
-        if (child.material) {
-          child.material = new THREE.MeshNormalMaterial();
-        }
+      this.tatoe.eri.traverse((child: THREE.Mesh) => {
+        child.material = new THREE.MeshNormalMaterial();
       });
       this.tatoe.userData.isNormalMaterial = true;
     } else {
-      this.tatoe.take.traverse((child: any) => {
+      this.tatoe.take.traverse((child: THREE.Mesh) => {
         child.material = child.userData.initialMaterial;
       });
-      this.tatoe.eri.traverse((child: any) => {
+      this.tatoe.eri.traverse((child: THREE.Mesh) => {
         child.material = child.userData.initialMaterial;
       });
       this.tatoe.userData.isNormalMaterial = false;
@@ -407,6 +403,14 @@ export default class Animation {
     this.tatoe.userData.isRotation = !this.tatoe.userData.isRotation;
   }
 
+  zoomOut() {
+    console.log(this.tatoe.userData.isZoomOut);
+    let scale;
+    let easing;
+    if (!this.tatoe.userData.isZoomOut) {
+      scale = { x: 0.005, y: 0.005, z: 0.005 };
+      easing = TWEEN.Easing.Exponential.Out;
+      this.tatoe.shape.traverse((child: any) => {
   reset() {
     this.tatoe.take.setRotationFromEuler(this.initialEuler);
     this.tatoe.eri.setRotationFromEuler(this.initialEuler);

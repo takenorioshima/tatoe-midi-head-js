@@ -11,9 +11,7 @@ export default class Tatoe extends THREE.Group {
   constructor() {
     super();
 
-    this.userData = {
-      isRotation: true
-    };
+    this.userData.isRotation = true;
 
     this.take = new Take(this);
     this.eri = new Eri(this);

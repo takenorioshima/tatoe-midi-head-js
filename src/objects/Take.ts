@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import Animation from './Animation';
 
 export default class Take extends THREE.Group {
 
@@ -41,13 +40,14 @@ export default class Take extends THREE.Group {
       this.lipTop.userData.initialPosition = this.lipTop.position.clone();
       this.lipBottom.userData.initialPosition = this.lipBottom.position.clone();
 
-      this.traverse((child: any) => {
-        if (child.material) {
-          child.userData.initialMaterial = child.material.clone();
+      this.traverse((child: THREE.Object3D) => {
+        if (child instanceof THREE.Mesh) {
+          child.userData.initialMaterial = (child.material as THREE.Material).clone();
         }
       });
 
       parent.add(this);
     });
   }
+
 }

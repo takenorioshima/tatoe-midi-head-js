@@ -18,6 +18,8 @@ export default class Eri extends THREE.Group {
 
     const loader = new GLTFLoader();
 
+    this.name = 'eri';
+
     loader.load('./models/Eri.glb', (gltf) => {
       this.add(gltf.scene);
 
@@ -32,9 +34,9 @@ export default class Eri extends THREE.Group {
       this.cheese = this.getObjectByName('cheese');
       this.cheese.visible = false;
 
-      this.traverse((child: any) => {
-        if (child.material) {
-          child.userData.initialMaterial = child.material.clone();
+      this.traverse((child: THREE.Object3D) => {
+        if (child instanceof THREE.Mesh) {
+          child.userData.initialMaterial = (child.material as THREE.Material).clone();
         }
       });
 
