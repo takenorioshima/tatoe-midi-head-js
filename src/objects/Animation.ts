@@ -411,6 +411,26 @@ export default class Animation {
       scale = { x: 0.005, y: 0.005, z: 0.005 };
       easing = TWEEN.Easing.Exponential.Out;
       this.tatoe.shape.traverse((child: any) => {
+        if (child.material) {
+          new TWEEN.Tween(child.material).to({ opacity: 1 }).start();
+        }
+      });
+      this.tatoe.userData.isZoomOut = true;
+    } else {
+      scale = this.initialScale;
+      easing = TWEEN.Easing.Exponential.InOut;
+      this.tatoe.userData.isZoomOut = false;
+      this.tatoe.shape.traverse((child: any) => {
+        if (child.material) {
+          new TWEEN.Tween(child.material).to({ opacity: 0 }).start();
+        }
+      });
+    }
+    const tween: any = new TWEEN.Tween(this.tatoe.scale).to(scale, this.durationBase * 10).easing(easing);
+    tween.paused = true;
+    tween.start();
+  }
+
   reset() {
     this.tatoe.take.setRotationFromEuler(this.initialEuler);
     this.tatoe.eri.setRotationFromEuler(this.initialEuler);

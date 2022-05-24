@@ -132,6 +132,9 @@ export default class AnimationController extends Animation {
       if (e.code == 'KeyY' && !e.repeat) {
         this.changeCap();
       }
+      if (e.code == 'KeyZ' && !e.repeat) {
+        this.zoomOut();
+      }
       if (e.code == 'Digit4' && !e.repeat) {
         this.toggleRotation();
       }
