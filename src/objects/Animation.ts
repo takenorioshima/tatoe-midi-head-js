@@ -5,6 +5,7 @@ export default class Animation {
 
   tatoe: THREE.Group | any;
   camera: THREE.OrthographicCamera;
+  controls: THREE.OrbitControls;
   renderer: THREE.WebGLRenderer;
   initialEuler: THREE.Euler;
   initialScale: { [axis: string]: number };
@@ -12,9 +13,10 @@ export default class Animation {
   durationBase: number;
   backgroundColorsIndex: number;
 
-  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, renderer: THREE.WebGLRenderer) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: THREE.OrbitControls, renderer: THREE.WebGLRenderer) {
     this.tatoe = tatoe;
     this.camera = camera;
+    this.controls = controls;
     this.renderer = renderer;
     this.initialEuler = new THREE.Euler(0, 0, 0, 'XYZ');
     this.initialScale = { x: 1, y: 1, z: 1 };
@@ -400,7 +402,7 @@ export default class Animation {
   }
 
   toggleRotation() {
-    this.tatoe.userData.isRotation = !this.tatoe.userData.isRotation;
+    this.controls.autoRotate = !this.controls.autoRotate;
   }
 
   zoomOut() {

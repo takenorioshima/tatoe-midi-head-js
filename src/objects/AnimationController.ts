@@ -2,9 +2,9 @@ import { WebMidi } from 'webmidi';
 import Animation from './Animation';
 
 export default class AnimationController extends Animation {
-  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, renderer: THREE.WebGLRenderer, window: Window) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: THREE.OrbitControls, renderer: THREE.WebGLRenderer, window: Window) {
 
-    super(tatoe, camera, renderer);
+    super(tatoe, camera, controls, renderer);
 
     /**
      * Detect MIDI device.

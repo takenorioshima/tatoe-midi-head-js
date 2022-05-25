@@ -37,9 +37,6 @@ export default class Tatoe extends THREE.Group {
   }
 
   update() {
-    if (this.userData.isRotation) {
-      this.rotation.y += 0.01;
-    }
     this.cube.rotation.x += -0.02;
     this.cube.rotation.y += -0.02;
   }

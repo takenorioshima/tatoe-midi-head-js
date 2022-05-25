@@ -14,8 +14,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xB7BC9B, 1);
 document.body.appendChild(renderer.domElement);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-
 // Stats
 const stats = Stats();
 stats.showPanel(0);
@@ -26,9 +24,12 @@ scene.add(tatoe);
 
 camera.zoom = 2;
 camera.position.set(10, 5, 0);
-camera.lookAt(0, 0, 0);
 
-const animationController = new AnimationController(tatoe, camera, renderer, window);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.autoRotate = true;
+controls.autoRotateSpeed = 5;
+
+const animationController = new AnimationController(tatoe, camera, controls, renderer, window);
 
 const tick = () => {
   requestAnimationFrame(tick);
