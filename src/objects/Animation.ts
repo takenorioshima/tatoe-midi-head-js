@@ -262,20 +262,14 @@ export default class Animation {
   }
 
   rotateTatoe() {
-    const ra = (Math.random() * 6) - 3;
-    const rb = (Math.random() * 6) - 3;
-    const rc = (Math.random() * 6) - 3;
-    new TWEEN.Tween(this.tatoe.take.rotation).to({ x: ra, y: rb, z: rc }, this.durationBase * 20).easing(TWEEN.Easing.Quintic.Out).start();
-    new TWEEN.Tween(this.tatoe.eri.rotation).to({ x: rb, y: rc, z: ra }, this.durationBase * 10).easing(TWEEN.Easing.Quintic.Out).start();
+    new TWEEN.Tween(this.tatoe.take.rotation).to(this.randomVector3(3, 6), this.durationBase * 20).easing(TWEEN.Easing.Quintic.Out).start();
+    new TWEEN.Tween(this.tatoe.eri.rotation).to(this.randomVector3(3, 6), this.durationBase * 10).easing(TWEEN.Easing.Quintic.Out).start();
   }
 
   scaleTatoe() {
     if (!this.tatoe.userData.isScaled) {
-      const ra = Math.random() * 2;
-      const rb = Math.random() * 2;
-      const rc = Math.random() * 2;
-      new TWEEN.Tween(this.tatoe.take.scale).to({ x: ra, y: rb, z: rc }, this.durationBase).start();
-      new TWEEN.Tween(this.tatoe.eri.scale).to({ x: rc, y: ra, z: rb }, this.durationBase).start();
+      new TWEEN.Tween(this.tatoe.take.scale).to(this.randomVector3(0.1, 2), this.durationBase).start();
+      new TWEEN.Tween(this.tatoe.eri.scale).to(this.randomVector3(0.1, 2), this.durationBase).start();
       this.tatoe.userData.isScaled = true;
     } else {
       new TWEEN.Tween(this.tatoe.take.scale).to(this.initialScale, this.durationBase).start();
@@ -463,4 +457,10 @@ export default class Animation {
     this.dissolve();
   }
 
+  private randomVector3(min: number, max: number): THREE.Vector3 {
+    const ra = Math.random() * (max - min) + min;
+    const rb = Math.random() * (max - min) + min;
+    const rc = Math.random() * (max - min) + min;
+    return new THREE.Vector3(ra, rb, rc);
+  }
 }
