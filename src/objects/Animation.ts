@@ -29,6 +29,7 @@ export default class Animation {
   /**
     * Animations.
     */
+
   changeBackgroundColor() {
     const backgroundColors = [0x33BF4F, 0xDC4829, 0xFFD000, 0x2D94CE, 0xB7BC9B];
     this.renderer.setClearColor(backgroundColors[this.backgroundColorsIndex], 1);
@@ -222,6 +223,37 @@ export default class Animation {
       new TWEEN.Tween(this.tatoe.take.glassL.scale).to(this.initialScale, this.durationBase).start();
       new TWEEN.Tween(this.tatoe.take.glassR.scale).to(this.initialScale, this.durationBase).start();
       this.tatoe.take.glassL.userData.isExtended = false;
+    }
+  }
+
+  moveShape(shapeIndex: number = 1) {
+    const objects = [
+      this.tatoe.shape.ta1,
+      this.tatoe.shape.ta2,
+      this.tatoe.shape.ta3,
+      this.tatoe.shape.ta4,
+      this.tatoe.shape.to1,
+      this.tatoe.shape.to2,
+      this.tatoe.shape.e1,
+      this.tatoe.shape.e2,
+      this.tatoe.shape.e3,
+    ];
+    const target = objects[shapeIndex];
+
+    console.log(target.userData.isAffected);
+
+    if (!target.userData.isAffected) {
+      let property;
+      switch (~~(2 * Math.random())) {
+        case 0: property = target.scale; break;
+        case 1: property = target.rotation; break;
+      }
+      new TWEEN.Tween(property).to({ x: 2, y: 2, z: 2 }, this.durationBase).easing(TWEEN.Easing.Elastic.Out).start();
+      target.userData.isAffected = true;
+    } else {
+      new TWEEN.Tween(target.scale).to(this.initialScale, this.durationBase).easing(TWEEN.Easing.Elastic.Out).start();
+      new TWEEN.Tween(target.rotation).to(this.origin, this.durationBase).easing(TWEEN.Easing.Elastic.Out).start();
+      target.userData.isAffected = false;
     }
   }
 
@@ -455,6 +487,13 @@ export default class Animation {
 
     this.tatoe.userData.isDissolved = true;
     this.dissolve();
+
+    this.tatoe.shape.traverse((child: THREE.Mesh) => {
+      if (child instanceof THREE.Mesh) {
+        new TWEEN.Tween(child.scale).to(this.initialScale, this.durationBase).start();
+        new TWEEN.Tween(child.rotation).to(this.origin, this.durationBase).start();
+      }
+    })
   }
 
   private randomVector3(min: number, max: number): THREE.Vector3 {
