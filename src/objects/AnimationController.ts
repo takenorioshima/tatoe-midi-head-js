@@ -97,7 +97,7 @@ export default class AnimationController extends Animation {
      * Listen keyboard events.
      */
 
-    window.addEventListener('keypress', (e: KeyboardEvent) => {
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
       console.log(e.code);
       if (e.code == 'KeyB' && !e.repeat) {
         this.changeBackgroundColor();
@@ -135,24 +135,56 @@ export default class AnimationController extends Animation {
       if (e.code == 'KeyZ' && !e.repeat) {
         this.zoomOut();
       }
+      if (e.code == 'Digit1' && !e.repeat) {
+        this.moveShape(1);
+      }
+      if (e.code == 'Digit2' && !e.repeat) {
+        this.moveShape(2);
+      }
+      if (e.code == 'Digit3' && !e.repeat) {
+        this.moveShape(3);
+      }
       if (e.code == 'Digit4' && !e.repeat) {
         this.toggleRotation();
+        this.moveShape(4);
       }
       if (e.code == 'Digit5' && !e.repeat) {
         this.rotateTatoe();
+        this.moveShape(5);
       }
       if (e.code == 'Digit6' && !e.repeat) {
         this.scaleTatoe();
+        this.moveShape(6);
+      }
+      if (e.code == 'Digit7' && !e.repeat) {
+        this.moveShape(7);
       }
       if (e.code == 'Digit8' && !e.repeat) {
         this.extendGlasses();
+        this.moveShape(8);
       }
       if (e.code == 'Digit9' && !e.repeat) {
         this.rotateHat();
       }
       if (e.code == 'Digit0' && !e.repeat) {
+        this.moveShape(0);
+      }
+      if (e.code == 'Escape' && !e.repeat) {
         this.reset();
       }
-    })
+    });
+
+    window.addEventListener('keyup', (e: KeyboardEvent) => {
+      console.log(e.code);
+      if (e.code == 'KeyL' && !e.repeat) {
+        this.rotateLips();
+      }
+      if (e.code == 'Digit5' && !e.repeat) {
+        this.rotateTatoe();
+      }
+      if (e.code == 'Digit9' && !e.repeat) {
+        this.rotateHat();
+      }
+    });
   }
 }
