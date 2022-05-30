@@ -99,7 +99,7 @@ export default class AnimationController extends Animation {
      */
 
     window.addEventListener('keydown', (e: KeyboardEvent) => {
-      console.log(e.code);
+      console.log(`keydown: ${e.code}`);
       if (e.code == 'KeyB' && !e.repeat) {
         this.changeBackgroundColor();
       }
@@ -176,7 +176,7 @@ export default class AnimationController extends Animation {
     });
 
     window.addEventListener('keyup', (e: KeyboardEvent) => {
-      console.log(e.code);
+      console.log(`keyup: ${e.code}`);
       if (e.code == 'KeyL' && !e.repeat) {
         this.rotateLips();
       }

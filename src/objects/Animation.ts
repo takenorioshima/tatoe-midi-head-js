@@ -241,8 +241,6 @@ export default class Animation {
     ];
     const target = objects[shapeIndex];
 
-    console.log(target.userData.isAffected);
-
     if (!target.userData.isAffected) {
       let property;
       switch (~~(2 * Math.random())) {
@@ -433,7 +431,6 @@ export default class Animation {
   }
 
   zoomOut() {
-    console.log(this.tatoe.userData.isZoomOut);
     let scale;
     let easing;
     if (!this.tatoe.userData.isZoomOut) {
