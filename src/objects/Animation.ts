@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default class Animation {
 
   tatoe: THREE.Group | any;
   camera: THREE.OrthographicCamera;
-  controls: THREE.OrbitControls;
+  controls: OrbitControls;
   renderer: THREE.WebGLRenderer;
   initialEuler: THREE.Euler;
   initialScale: { [axis: string]: number };
@@ -13,7 +14,7 @@ export default class Animation {
   durationBase: number;
   backgroundColorsIndex: number;
 
-  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: THREE.OrbitControls, renderer: THREE.WebGLRenderer) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: OrbitControls, renderer: THREE.WebGLRenderer) {
     this.tatoe = tatoe;
     this.camera = camera;
     this.controls = controls;

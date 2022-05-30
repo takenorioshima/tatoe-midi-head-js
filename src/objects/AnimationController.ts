@@ -1,8 +1,9 @@
 import { WebMidi } from 'webmidi';
 import Animation from './Animation';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default class AnimationController extends Animation {
-  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: THREE.OrbitControls, renderer: THREE.WebGLRenderer, window: Window) {
+  constructor(tatoe: THREE.Group | any, camera: THREE.OrthographicCamera, controls: OrbitControls, renderer: THREE.WebGLRenderer, window: Window) {
 
     super(tatoe, camera, controls, renderer);
 
